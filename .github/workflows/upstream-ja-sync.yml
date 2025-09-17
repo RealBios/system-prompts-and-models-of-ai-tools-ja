@@ -59,26 +59,30 @@ jobs:
         run: |
           python .github/translation/translate_repo.py
 
-      # 8) JSON バリデーション
-      - name: Validate JSON files
+      # 8) jq を確実に用意（既にあればスキップ）
+      - name: Ensure jq
         run: |
-          sudo apt-get update && sudo apt-get install -y jq
-          set -e
-          for f in $(git ls-files '*.json'); do
-            jq . "$f" >/dev/null || { echo "::error file=$f::invalid JSON"; exit 1; }
-          done
-
-      # 9) 変更があればコミット
-      - name: Commit changes (if any)
-        run: |
-          git add -A
-          if git diff --cached --quiet; then
-            echo "No changes to commit."
-            exit 0
+          set -eux
+          if ! command -v jq >/dev/null 2>&1; then
+            for i in 1 2 3; do
+              sudo apt-get update -y && sudo apt-get install -y jq && break || sleep 5
+            done
           fi
-          git config user.name "ja-sync-bot"
-          git config user.email "actions@users.noreply.github.com"
-          git commit -m "chore(sync): upstream main → 日本語化（自動）"
+          jq -V
+
+      # 9) JSON バリデーション（スペースを含むパス対応）
+      - name: Validate JSON files
+        shell: bash
+        run: |
+          set -euo pipefail
+          has_files=false
+          while IFS= read -r -d '' f; do
+            has_files=true
+            jq -e . "$f" >/dev/null || { echo "::error file=$f::invalid JSON"; exit 1; }
+          done < <(git ls-files -z '*.json')
+          if [ "$has_files" = false ]; then
+            echo "No JSON files found"
+          fi
 
       # 10) PR を作成
       - name: Create Pull Request
