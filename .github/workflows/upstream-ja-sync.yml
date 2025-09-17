@@ -78,7 +78,7 @@ jobs:
           # 例外スキップ（当面）
           skip1='Lovable/Agent Tools.json'
 
-          # json5 を入れて「緩いパース→厳密JSONへ再シリアライズ」を試みる
+          # json5 を入れて 「緩いパース→厳密JSONへ再シリアライズ」を試みる
           python - <<'PY'
       import sys, json, pathlib, subprocess
       from json import JSONDecodeError
