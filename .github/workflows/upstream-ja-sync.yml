@@ -50,6 +50,8 @@ jobs:
       - name: Install translation deps
         run: |
           pip install -r .github/translation/requirements.txt
+          # JSON5 の自動修復で使う（requirements 未反映でも動くよう保険）
+          pip install json5 || true
 
       # 7) 翻訳を実行（同名ファイルで内容日本語化／構造不変）
       - name: Run translator (same filenames, structure-preserving)
@@ -58,7 +60,7 @@ jobs:
           DEEPL_API_KEY:  ${{ secrets.DEEPL_API_KEY }}   # 任意
         run: |
           python .github/translation/translate_repo.py
-          
+
       # 8) jq を確実に用意（既にあればスキップ）
       - name: Ensure jq
         run: |
@@ -69,7 +71,8 @@ jobs:
             done
           fi
           jq -V
-      # Validate の step をこの版に差し替え
+
+      # 9) JSON バリデーション（既知の壊れファイルは一時スキップ／JSON5で自動修復）
       - name: Validate JSON files (skip known-bad; JSON5 auto-repair)
         shell: bash
         run: |
@@ -78,48 +81,44 @@ jobs:
           # 例外スキップ（当面）
           skip1='Lovable/Agent Tools.json'
 
-          # json5 を入れて 「緩いパース→厳密JSONへ再シリアライズ」を試みる
+          # json5 を使い「緩いパース→厳密JSONへ再シリアライズ」を試みる
           python - <<'PY'
-      import sys, json, pathlib, subprocess
-      from json import JSONDecodeError
-
-      try:
-          import json5  # type: ignore
-          HAS_JSON5 = True
-      except Exception:
-          HAS_JSON5 = False
-
-      def try_fix(p: pathlib.Path):
-          t = p.read_text(encoding='utf-8', errors='replace')
-          # まず厳密JSON
+          import sys, json, pathlib, subprocess
+          from json import JSONDecodeError
           try:
-              json.loads(t)
-              return False  # 既にOK
-          except JSONDecodeError:
-              pass
-
-          if not HAS_JSON5:
-              return False
-
-          # JSON5でパースできたら、厳密JSONで書き戻して修復
-          try:
-              obj = json5.loads(t)
-              p.write_text(json.dumps(obj, ensure_ascii=False, indent=2) + "\n", encoding='utf-8')
-              return True
+              import json5  # type: ignore
+              HAS_JSON5 = True
           except Exception:
-              return False
+              HAS_JSON5 = False
 
-      # 対象 *.json を走査
-      files = subprocess.check_output(["git","ls-files","-z","*.json"]).decode("utf-8","replace").split("\x00")
-      for f in filter(None, files):
-          p = pathlib.Path(f)
-          if f == "Lovable/Agent Tools.json":
-              # 当面スキップ（後で手当て）
-              continue
-          changed = try_fix(p)
-          if changed:
-              print(f"[auto-fixed] {f}")
-      PY
+          def try_fix(p: pathlib.Path):
+              t = p.read_text(encoding='utf-8', errors='replace')
+              # まず厳密JSON
+              try:
+                  json.loads(t)
+                  return False  # 既にOK
+              except JSONDecodeError:
+                  pass
+              if not HAS_JSON5:
+                  return False
+              # JSON5でパースできたら、厳密JSONで書き戻して修復
+              try:
+                  import json5  # type: ignore
+                  obj = json5.loads(t)
+                  p.write_text(json.dumps(obj, ensure_ascii=False, indent=2) + "\n", encoding='utf-8')
+                  return True
+              except Exception:
+                  return False
+
+          files = subprocess.check_output(["git","ls-files","-z","*.json"]).decode("utf-8","replace").split("\x00")
+          for f in filter(None, files):
+              p = pathlib.Path(f)
+              if f == "Lovable/Agent Tools.json":  # 当面スキップ（後で手当て）
+                  continue
+              changed = try_fix(p)
+              if changed:
+                  print(f"[auto-fixed] {f}")
+          PY
 
           # jqで最終検証（NUL区切り・スペース含むパス安全対応）
           fail=0
