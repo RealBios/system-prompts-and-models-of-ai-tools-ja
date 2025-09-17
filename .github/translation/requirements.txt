@@ -1,3 +1,4 @@
 openai>=1.40.0
 deepl==1.18.0
 pyyaml
+json5
