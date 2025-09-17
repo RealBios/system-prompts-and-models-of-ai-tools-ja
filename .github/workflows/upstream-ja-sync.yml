@@ -58,31 +58,50 @@ jobs:
           DEEPL_API_KEY:  ${{ secrets.DEEPL_API_KEY }}   # 任意
         run: |
           python .github/translation/translate_repo.py
+          
+# 8) jq を確実に用意（既にあればスキップ）
+- name: Ensure jq
+  run: |
+    set -eux
+    if ! command -v jq >/dev/null 2>&1; then
+      for i in 1 2 3; do
+        sudo apt-get update -y && sudo apt-get install -y jq && break || sleep 5
+      done
+    fi
+    jq -V
 
-      # 8) jq を確実に用意（既にあればスキップ）
-      - name: Ensure jq
-        run: |
-          set -eux
-          if ! command -v jq >/dev/null 2>&1; then
-            for i in 1 2 3; do
-              sudo apt-get update -y && sudo apt-get install -y jq && break || sleep 5
-            done
-          fi
-          jq -V
-
-      # 9) JSON バリデーション（スペースを含むパス対応）
-      - name: Validate JSON files
-        shell: bash
-        run: |
-          set -euo pipefail
-          has_files=false
-          while IFS= read -r -d '' f; do
-            has_files=true
-            jq -e . "$f" >/dev/null || { echo "::error file=$f::invalid JSON"; exit 1; }
-          done < <(git ls-files -z '*.json')
-          if [ "$has_files" = false ]; then
-            echo "No JSON files found"
-          fi
+# 9) JSON バリデーション（NUL区切り＋詳細診断）
+- name: Diagnose & validate JSON files
+  shell: bash
+  run: |
+    set -euo pipefail
+    err=0
+    while IFS= read -r -d '' f; do
+      echo "::group::Validate $f"
+      # まず jq で厳密判定
+      if ! jq -e . "$f" >/dev/null 2>&1; then
+        # PythonのJSONDecodeErrorで場所を特定してスニペット表示
+        python - "$f" <<'PY' || err=1
+import sys, json, pathlib
+from json import JSONDecodeError
+p = pathlib.Path(sys.argv[1])
+t = p.read_text(encoding='utf-8', errors='replace')
+try:
+    json.loads(t)
+except JSONDecodeError as e:
+    print(f"JSON ERROR in {p}: {e.msg} at line {e.lineno}, col {e.colno}")
+    lines = t.splitlines()
+    start = max(0, e.lineno-3); end = min(len(lines), e.lineno+2)
+    for i in range(start, end):
+        print(f"{i+1:6d}: {lines[i]}")
+    sys.exit(1)
+PY
+      else
+        echo "OK"
+      fi
+      echo "::endgroup::"
+    done < <(git ls-files -z '*.json')
+    exit $err
 
       # 10) PR を作成
       - name: Create Pull Request
