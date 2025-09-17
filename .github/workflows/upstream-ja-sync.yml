@@ -2,12 +2,8 @@ name: Upstream Sync & JA Translate
 
 on:
   schedule:
-    - cron: '0 15 * * *'  # 00:00 JST   
+    - cron: '0 15 * * *'  # 00:00 JST
   workflow_dispatch:
-  push:
-    paths:
-      - '.github/translation/**'
-      - '.github/workflows/upstream-ja-sync.yml'
 
 permissions:
   contents: write
@@ -17,7 +13,7 @@ jobs:
   sync-and-translate:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout fork
+      - name: Checkout fork (origin)
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -28,19 +24,19 @@ jobs:
           git fetch upstream main
 
       - name: Create working branch from upstream/main
-      - name: Import JA kit (.github) from fork (origin)
-        run: |
-          git fetch origin
-          # main が無いリポもあるので master フォールバック
-          (git checkout origin/main -- .github || git checkout origin/master -- .github)
-          ls -R .github
-        id: branch
+        id: mkbranch
         run: |
           BRANCH="bot/ja-sync-$(date -u +%Y%m%d-%H%M%S)"
           git checkout -B "$BRANCH" upstream/main
           echo "branch=$BRANCH" >> $GITHUB_OUTPUT
 
-      - name: Setup Python
+      - name: Import JA kit (.github) from fork (origin)
+        run: |
+          git fetch origin
+          git checkout origin/main -- .github || git checkout origin/master -- .github
+          ls -R .github
+
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
@@ -61,7 +57,7 @@ jobs:
           sudo apt-get update && sudo apt-get install -y jq
           set -e
           for f in $(git ls-files '*.json'); do
-            jq . "$f" > /dev/null || { echo "::error file=$f::invalid JSON"; exit 1; }
+            jq . "$f" >/dev/null || { echo "::error file=$f::invalid JSON"; exit 1; }
           done
 
       - name: Commit changes (if any)
@@ -75,15 +71,4 @@ jobs:
           git config user.email "actions@users.noreply.github.com"
           git commit -m "chore(sync): upstream main → 日本語化（自動）"
 
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ steps.branch.outputs.branch }}
-          title: "Upstream sync + 日本語化（自動）"
-          body: |
-            - Upstream 最新を取り込み
-            - 同名ファイルで本文を日本語化（構造不変）
-            - JSONは `description` のみ日本語化、TXT/MDは本文日本語化（コードブロック保持）
-            - ライセンスは GPL-3.0 を継承
-          labels: auto-sync,i18n
+      - name: Create Pull
