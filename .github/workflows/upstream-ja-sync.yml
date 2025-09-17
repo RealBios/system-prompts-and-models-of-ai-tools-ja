@@ -2,7 +2,7 @@ name: Upstream Sync & JA Translate
 
 on:
   schedule:
-    - cron: '0 15 * * *'  # 00:00 JST
+    - cron: '0 15 * * *'  # 00:00 JST   
   workflow_dispatch:
   push:
     paths:
