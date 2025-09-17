@@ -13,16 +13,19 @@ jobs:
   sync-and-translate:
     runs-on: ubuntu-latest
     steps:
+      # 1) Fork 側をチェックアウト（origin）
       - name: Checkout fork (origin)
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
+      # 2) upstream を追加して取得
       - name: Add upstream and fetch
         run: |
           git remote add upstream https://github.com/x1xhlol/system-prompts-and-models-of-ai-tools.git || true
           git fetch upstream main
 
+      # 3) upstream/main から作業ブランチ作成
       - name: Create working branch from upstream/main
         id: mkbranch
         run: |
@@ -30,28 +33,33 @@ jobs:
           git checkout -B "$BRANCH" upstream/main
           echo "branch=$BRANCH" >> $GITHUB_OUTPUT
 
+      # 4) フォークの .github（翻訳キット）を上書きで持ってくる
       - name: Import JA kit (.github) from fork (origin)
         run: |
           git fetch origin
           git checkout origin/main -- .github || git checkout origin/master -- .github
-          ls -R .github
+          test -f .github/translation/translate_repo.py
 
+      # 5) Python セットアップ
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
+      # 6) 依存インストール
       - name: Install translation deps
         run: |
           pip install -r .github/translation/requirements.txt
 
+      # 7) 翻訳を実行（同名ファイルで内容日本語化／構造不変）
       - name: Run translator (same filenames, structure-preserving)
         env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}  # optional
-          DEEPL_API_KEY:  ${{ secrets.DEEPL_API_KEY }}   # optional
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}  # 任意
+          DEEPL_API_KEY:  ${{ secrets.DEEPL_API_KEY }}   # 任意
         run: |
           python .github/translation/translate_repo.py
 
+      # 8) JSON バリデーション
       - name: Validate JSON files
         run: |
           sudo apt-get update && sudo apt-get install -y jq
@@ -60,6 +68,7 @@ jobs:
             jq . "$f" >/dev/null || { echo "::error file=$f::invalid JSON"; exit 1; }
           done
 
+      # 9) 変更があればコミット
       - name: Commit changes (if any)
         run: |
           git add -A
@@ -71,6 +80,7 @@ jobs:
           git config user.email "actions@users.noreply.github.com"
           git commit -m "chore(sync): upstream main → 日本語化（自動）"
 
+      # 10) PR を作成
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:

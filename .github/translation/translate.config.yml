@@ -1,10 +1,16 @@
 target_lang: ja
-bilingual: false
+bilingual: false  # true にすると日本語＋英語併記
+
 translate_json:
   enabled: true
+  # JSONは構造不変。以下のキーの「値」だけ翻訳します
   keys: ["description"]
+
 translate_text:
   enabled: true
   exts: [".txt", ".md"]
-  exclude: ["^\.github/translation/"]
+  # ダブルクォートでエスケープが効いて落ちないよう、シングルクォートで正規表現を記載
+  exclude:
+    - '^\.github/translation/'
+
 glossary_csv: ".github/translation/glossary_ja_en.csv"
