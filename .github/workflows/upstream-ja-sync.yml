@@ -46,11 +46,10 @@ jobs:
         with:
           python-version: '3.11'
 
-      # 6) 依存インストール
+      # 6) 依存インストール（json5 は自動修復用の保険）
       - name: Install translation deps
         run: |
           pip install -r .github/translation/requirements.txt
-          # JSON5 の自動修復で使う（requirements 未反映でも動くよう保険）
           pip install json5 || true
 
       # 7) 翻訳を実行（同名ファイルで内容日本語化／構造不変）
@@ -72,16 +71,16 @@ jobs:
           fi
           jq -V
 
-      # 9) JSON バリデーション（既知の壊れファイルは一時スキップ／JSON5で自動修復）
-      - name: Validate JSON files (skip known-bad; JSON5 auto-repair)
+      # 9) JSON 自動修復（JSON5 -> 厳密JSON）＋ 厳密検証（NUL区切り対応）
+      - name: Validate JSON files (auto-repair + strict check)
         shell: bash
         run: |
           set -euo pipefail
 
-          # 例外スキップ（当面）
-          skip1='Lovable/Agent Tools.json'
+          # 必要ならここに一時的にスキップしたいファイル名を入れる（例: 'Lovable/Agent Tools.json'）
+          SKIP_LIST=()
 
-          # json5 を使い「緩いパース→厳密JSONへ再シリアライズ」を試みる
+          # --- 自動修復（JSON5で読めたら厳密JSONに再整形） ---
           python - <<'PY'
           import sys, json, pathlib, subprocess
           from json import JSONDecodeError
@@ -113,21 +112,22 @@ jobs:
           files = subprocess.check_output(["git","ls-files","-z","*.json"]).decode("utf-8","replace").split("\x00")
           for f in filter(None, files):
               p = pathlib.Path(f)
-              if f == "Lovable/Agent Tools.json":  # 当面スキップ（後で手当て）
-                  continue
               changed = try_fix(p)
               if changed:
                   print(f"[auto-fixed] {f}")
           PY
 
-          # jqで最終検証（NUL区切り・スペース含むパス安全対応）
+          # --- 厳密検証（jq, NUL区切り・空白含むパス安全） ---
           fail=0
           while IFS= read -r -d '' f; do
-            # 例外はスキップ
-            if [ "$f" = "$skip1" ]; then
-              echo "Skip (known-bad for now): $f"
-              continue
-            fi
+            # スキップ対象
+            for s in "${SKIP_LIST[@]:-}"; do
+              if [ "$f" = "$s" ]; then
+                echo "Skip (temporary): $f"
+                continue 2
+              fi
+            done
+
             echo "Validate: $f"
             if jq -e . "$f" >/dev/null 2> .jq_err.txt; then
               echo "OK"
