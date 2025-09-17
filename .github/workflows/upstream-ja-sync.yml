@@ -28,6 +28,12 @@ jobs:
           git fetch upstream main
 
       - name: Create working branch from upstream/main
+      - name: Import JA kit (.github) from fork (origin)
+        run: |
+          git fetch origin
+          # main が無いリポもあるので master フォールバック
+          (git checkout origin/main -- .github || git checkout origin/master -- .github)
+          ls -R .github
         id: branch
         run: |
           BRANCH="bot/ja-sync-$(date -u +%Y%m%d-%H%M%S)"
