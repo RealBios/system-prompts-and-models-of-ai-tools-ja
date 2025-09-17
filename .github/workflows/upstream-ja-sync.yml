@@ -71,4 +71,15 @@ jobs:
           git config user.email "actions@users.noreply.github.com"
           git commit -m "chore(sync): upstream main → 日本語化（自動）"
 
-      - name: Create Pull
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ steps.mkbranch.outputs.branch }}
+          title: "Upstream sync + 日本語化（自動）"
+          body: |
+            - Upstream 最新を取り込み
+            - 同名ファイルで本文を日本語化（構造不変）
+            - JSONは `description` のみ日本語化、TXT/MDは本文日本語化（コードブロック保持）
+            - ライセンスは GPL-3.0 を継承
+          labels: auto-sync,i18n
