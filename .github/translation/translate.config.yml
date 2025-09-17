@@ -1,0 +1,10 @@
+target_lang: ja
+bilingual: false
+translate_json:
+  enabled: true
+  keys: ["description"]
+translate_text:
+  enabled: true
+  exts: [".txt", ".md"]
+  exclude: ["^\.github/translation/"]
+glossary_csv: ".github/translation/glossary_ja_en.csv"
