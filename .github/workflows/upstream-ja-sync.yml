@@ -69,6 +69,32 @@ jobs:
             done
           fi
           jq -V
+      - name: Validate JSON files (report failing file + context)
+        shell: bash
+        run: |
+          set -euo pipefail
+          fail=0
+          while IFS= read -r -d '' f; do
+            echo "Validate: $f"
+            # jq のエラーを一旦ファイルに保存（行番号を抽出するため）
+            if jq -e . "$f" >/dev/null 2> .jq_err.txt; then
+              echo "OK"
+            else
+              echo "ERROR in: $f"
+              cat .jq_err.txt
+              # "at line N, column M" から行番号を拾って前後を抜粋表示
+              line=$(sed -n 's/.* at line \([0-9]\+\), column .*/\1/p' .jq_err.txt | tail -1 || true)
+              if [ -n "${line:-}" ]; then
+                start=$((line-3)); [ $start -lt 1 ] && start=1
+                end=$((line+2))
+                echo "----- context ${start}-${end} -----"
+                nl -ba "$f" | sed -n "${start},${end}p"
+                echo "----------------------------------"
+              fi
+              fail=1
+            fi
+          done < <(git ls-files -z '*.json')
+          exit $fail
 
       # 9) JSON バリデーション（NUL区切り＋詳細診断）
       - name: Diagnose & validate JSON files
