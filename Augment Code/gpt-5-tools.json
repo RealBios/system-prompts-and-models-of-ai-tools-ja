@@ -4,34 +4,39 @@
       "type": "function",
       "function": {
         "name": "view",
-        "description": "View a file or directory. For files, optionally search within the file using a regex pattern or limit to a line range. Exclude the 'electron' folder by default unless explicitly requested.",
+        "description": "View a ファイル or ディレクトリ. For ファイル, optionally 検索します within the ファイル using a regex pattern or limit to a line range. Exclude the 'electron' フォルダ by 既定値 unless explicitly requested.",
         "parameters": {
           "type": "object",
           "properties": {
             "type": {
               "type": "string",
-              "enum": ["file", "directory"],
-              "description": "Whether to view a single file or a directory listing (up to 2 levels)."
+              "enum": [
+                "file",
+                "directory"
+              ],
+              "description": "Whether to view a single ファイル or a ディレクトリ listing (up to 2 levels)."
             },
             "path": {
               "type": "string",
-              "description": "Path relative to the repository root."
+              "description": "パス relative to the リポジトリ root."
             },
             "view_range": {
               "type": "array",
-              "items": { "type": "integer" },
+              "items": {
+                "type": "integer"
+              },
               "minItems": 2,
               "maxItems": 2,
-              "description": "Optional [start_line, end_line] 1-based inclusive range for files."
+              "description": "Optional [start_line, end_line] 1-based inclusive range for ファイル."
             },
             "search_query_regex": {
               "type": "string",
-              "description": "Optional regex to search within file content (single-line regex)."
+              "description": "Optional regex to 検索します within ファイル content (single-line regex)."
             },
             "case_sensitive": {
               "type": "boolean",
               "default": false,
-              "description": "Whether the regex search is case-sensitive."
+              "description": "Whether the regex 検索します is case-sensitive."
             },
             "context_lines_before": {
               "type": "integer",
@@ -44,7 +49,10 @@
               "description": "Lines of context to include after each regex match."
             }
           },
-          "required": ["type", "path"],
+          "required": [
+            "type",
+            "path"
+          ],
           "additionalProperties": false
         }
       }
@@ -53,34 +61,42 @@
       "type": "function",
       "function": {
         "name": "grep-search",
-        "description": "Search across multiple files/directories or the whole codebase. Use for finding text/symbols across many files. Excludes 'electron/**' by default unless explicitly overridden.",
+        "description": "検索します across multiple ファイル/directories or the whole codebase. Use for finding text/symbols across many ファイル. Excludes 'electron/**' by 既定値 unless explicitly overridden.",
         "parameters": {
           "type": "object",
           "properties": {
             "query": {
               "type": "string",
-              "description": "Text or regex to search for."
+              "description": "Text or regex to 検索します for."
             },
             "paths": {
               "type": "array",
-              "items": { "type": "string" },
-              "description": "Optional list of directories or files to limit the search scope."
+              "items": {
+                "type": "string"
+              },
+              "description": "Optional 一覧を取得します of directories or ファイル to limit the 検索します scope."
             },
             "include_globs": {
               "type": "array",
-              "items": { "type": "string" },
+              "items": {
+                "type": "string"
+              },
               "description": "Optional glob patterns to include (e.g., 'src/**/*.ts')."
             },
             "exclude_globs": {
               "type": "array",
-              "items": { "type": "string" },
-              "default": ["electron/**"],
-              "description": "Optional glob patterns to exclude. Defaults to excluding the 'electron' folder."
+              "items": {
+                "type": "string"
+              },
+              "default": [
+                "electron/**"
+              ],
+              "description": "Optional glob patterns to exclude. Defaults to excluding the 'electron' フォルダ."
             },
             "case_sensitive": {
               "type": "boolean",
               "default": false,
-              "description": "Case sensitivity for the search."
+              "description": "Case sensitivity for the 検索します."
             },
             "context_lines_before": {
               "type": "integer",
@@ -98,7 +114,9 @@
               "description": "Limit the number of matches returned."
             }
           },
-          "required": ["query"],
+          "required": [
+            "query"
+          ],
           "additionalProperties": false
         }
       }
@@ -107,7 +125,7 @@
       "type": "function",
       "function": {
         "name": "codebase-retrieval",
-        "description": "High-level retrieval across the current codebase to locate relevant files, classes, functions, or patterns when you don't know where to look.",
+        "description": "High-level retrieval across the current codebase to locate relevant ファイル, classes, functions, or patterns when you don't know where to look.",
         "parameters": {
           "type": "object",
           "properties": {
@@ -116,7 +134,9 @@
               "description": "Natural-language description of what you need to find."
             }
           },
-          "required": ["information_request"],
+          "required": [
+            "information_request"
+          ],
           "additionalProperties": false
         }
       }
@@ -125,7 +145,7 @@
       "type": "function",
       "function": {
         "name": "git-commit-retrieval",
-        "description": "Use the repository’s commit history to find how similar changes were made in the past or why changes happened.",
+        "description": "Use the リポジトリ’s コミット history to find how similar changes were made in the past or why changes happened.",
         "parameters": {
           "type": "object",
           "properties": {
@@ -134,7 +154,9 @@
               "description": "Question about past changes (e.g., how/why a feature was implemented)."
             }
           },
-          "required": ["information_request"],
+          "required": [
+            "information_request"
+          ],
           "additionalProperties": false
         }
       }
@@ -143,18 +165,21 @@
       "type": "function",
       "function": {
         "name": "str-replace-editor",
-        "description": "Edit existing files safely. Use 'str_replace' for in-place replacements with explicit line ranges, or 'insert' to insert new content at a specific line.",
+        "description": "Edit existing ファイル safely. Use 'str_replace' for in-place replacements with explicit line ranges, or 'insert' to insert new content at a specific line.",
         "parameters": {
           "type": "object",
           "properties": {
             "command": {
               "type": "string",
-              "enum": ["str_replace", "insert"],
+              "enum": [
+                "str_replace",
+                "insert"
+              ],
               "description": "Edit mode: 'str_replace' or 'insert'."
             },
             "path": {
               "type": "string",
-              "description": "Path of the file to edit, relative to repo root."
+              "description": "パス of the ファイル to edit, relative to repo root."
             },
             "instruction_reminder": {
               "type": "string",
@@ -181,7 +206,11 @@
               "description": "For 'str_replace': 1-based end line of old_str_1 (inclusive)."
             }
           },
-          "required": ["command", "path", "instruction_reminder"],
+          "required": [
+            "command",
+            "path",
+            "instruction_reminder"
+          ],
           "additionalProperties": false
         }
       }
@@ -190,21 +219,21 @@
       "type": "function",
       "function": {
         "name": "save-file",
-        "description": "Create a new file. Does not modify existing files.",
+        "description": "作成します a new ファイル. Does not modify existing ファイル.",
         "parameters": {
           "type": "object",
           "properties": {
             "instructions_reminder": {
               "type": "string",
-              "description": "Must be exactly: 'LIMIT THE FILE CONTENT TO AT MOST 300 LINES. IF MORE CONTENT NEEDS TO BE ADDED USE THE str-replace-editor TOOL TO EDIT THE FILE AFTER IT HAS BEEN CREATED.'"
+              "description": "Must be exactly: 'LIMIT THE ファイル CONTENT TO AT MOST 300 LINES. IF MORE CONTENT NEEDS TO BE ADDED USE THE str-replace-editor ツール TO EDIT THE ファイル AFTER IT HAS BEEN CREATED.'"
             },
             "path": {
               "type": "string",
-              "description": "Path for the new file, relative to repo root."
+              "description": "パス for the new ファイル, relative to repo root."
             },
             "file_content": {
               "type": "string",
-              "description": "Content to write into the new file."
+              "description": "Content to 書き込みます into the new ファイル."
             },
             "add_last_line_newline": {
               "type": "boolean",
@@ -212,7 +241,11 @@
               "description": "Whether to ensure a trailing newline."
             }
           },
-          "required": ["instructions_reminder", "path", "file_content"],
+          "required": [
+            "instructions_reminder",
+            "path",
+            "file_content"
+          ],
           "additionalProperties": false
         }
       }
@@ -221,100 +254,166 @@
       "type": "function",
       "function": {
         "name": "remove-files",
-        "description": "Delete files from the workspace in a reversible way.",
+        "description": "削除します ファイル from the workspace in a reversible way.",
         "parameters": {
           "type": "object",
           "properties": {
             "file_paths": {
               "type": "array",
-              "items": { "type": "string" },
-              "description": "List of file paths to remove, relative to repo root."
+              "items": {
+                "type": "string"
+              },
+              "description": "一覧を取得します of ファイル パス to remove, relative to repo root."
             }
           },
-          "required": ["file_paths"],
+          "required": [
+            "file_paths"
+          ],
           "additionalProperties": false
         }
       }
     },
-
     {
       "type": "function",
       "function": {
         "name": "launch-process",
-        "description": "Run a shell command. Use wait=true for short commands. OS is win32; shell is 'bash'.",
+        "description": "Run a shell コマンド. Use wait=true for short コマンド. OS is win32; shell is 'bash'.",
         "parameters": {
           "type": "object",
           "properties": {
-            "command": { "type": "string", "description": "The shell command to execute." },
-            "wait": { "type": "boolean", "description": "Whether to wait for the process to complete." },
-            "max_wait_seconds": { "type": "integer", "description": "Timeout in seconds when wait=true." },
-            "cwd": { "type": "string", "description": "Absolute working directory for the command." }
+            "command": {
+              "type": "string",
+              "description": "The shell コマンド to 実行します."
+            },
+            "wait": {
+              "type": "boolean",
+              "description": "Whether to wait for the process to complete."
+            },
+            "max_wait_seconds": {
+              "type": "integer",
+              "description": "Timeout in seconds when wait=true."
+            },
+            "cwd": {
+              "type": "string",
+              "description": "Absolute working ディレクトリ for the コマンド."
+            }
           },
-          "required": ["command", "wait", "max_wait_seconds", "cwd"],
+          "required": [
+            "command",
+            "wait",
+            "max_wait_seconds",
+            "cwd"
+          ],
           "additionalProperties": false
         }
       }
     },
-    { "type": "function", "function": {
-      "name": "read-process",
-      "description": "Read output from a previously launched process.",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "terminal_id": { "type": "integer", "description": "Target terminal ID." },
-          "wait": { "type": "boolean", "description": "Whether to wait for completion." },
-          "max_wait_seconds": { "type": "integer", "description": "Timeout when wait=true." }
-        },
-        "required": ["terminal_id", "wait", "max_wait_seconds"],
-        "additionalProperties": false
+    {
+      "type": "function",
+      "function": {
+        "name": "read-process",
+        "description": "読み取ります 出力 from a previously launched process.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "terminal_id": {
+              "type": "integer",
+              "description": "Target terminal ID."
+            },
+            "wait": {
+              "type": "boolean",
+              "description": "Whether to wait for completion."
+            },
+            "max_wait_seconds": {
+              "type": "integer",
+              "description": "Timeout when wait=true."
+            }
+          },
+          "required": [
+            "terminal_id",
+            "wait",
+            "max_wait_seconds"
+          ],
+          "additionalProperties": false
+        }
       }
-    }},
-    { "type": "function", "function": {
-      "name": "write-process",
-      "description": "Write input to a running process’s stdin.",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "terminal_id": { "type": "integer", "description": "Target terminal ID." },
-          "input_text": { "type": "string", "description": "Text to write to stdin." }
-        },
-        "required": ["terminal_id", "input_text"],
-        "additionalProperties": false
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "write-process",
+        "description": "書き込みます 入力 to a running process’s stdin.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "terminal_id": {
+              "type": "integer",
+              "description": "Target terminal ID."
+            },
+            "input_text": {
+              "type": "string",
+              "description": "Text to 書き込みます to stdin."
+            }
+          },
+          "required": [
+            "terminal_id",
+            "input_text"
+          ],
+          "additionalProperties": false
+        }
       }
-    }},
-    { "type": "function", "function": {
-      "name": "kill-process",
-      "description": "Kill a running process by terminal ID.",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "terminal_id": { "type": "integer", "description": "Target terminal ID." }
-        },
-        "required": ["terminal_id"],
-        "additionalProperties": false
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "kill-process",
+        "description": "Kill a running process by terminal ID.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "terminal_id": {
+              "type": "integer",
+              "description": "Target terminal ID."
+            }
+          },
+          "required": [
+            "terminal_id"
+          ],
+          "additionalProperties": false
+        }
       }
-    }},
-    { "type": "function", "function": {
-      "name": "list-processes",
-      "description": "List all known terminals created with the launch-process tool.",
-      "parameters": { "type": "object", "properties": {}, "additionalProperties": false }
-    }},
-
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "list-processes",
+        "description": "一覧を取得します all known terminals created with the launch-process ツール.",
+        "parameters": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": false
+        }
+      }
+    },
     {
       "type": "function",
       "function": {
         "name": "diagnostics",
-        "description": "Return IDE issues (errors, warnings, etc.) for specified files.",
+        "description": "返します IDE Issue (エラー, 警告, etc.) for specified ファイル.",
         "parameters": {
           "type": "object",
           "properties": {
             "paths": {
               "type": "array",
-              "items": { "type": "string" },
-              "description": "List of file paths to get issues for."
+              "items": {
+                "type": "string"
+              },
+              "description": "一覧を取得します of ファイル パス to get Issue for."
             }
           },
-          "required": ["paths"],
+          "required": [
+            "paths"
+          ],
           "additionalProperties": false
         }
       }
@@ -323,54 +422,62 @@
       "type": "function",
       "function": {
         "name": "read-terminal",
-        "description": "Read the visible output from the active or most-recently used VSCode terminal.",
+        "description": "読み取ります the visible 出力 from the active or most-recently used VSCode terminal.",
         "parameters": {
           "type": "object",
           "properties": {
             "only_selected": {
               "type": "boolean",
-              "description": "Whether to read only the selected text."
+              "description": "Whether to 読み取ります only the selected text."
             }
           },
           "additionalProperties": false
         }
       }
     },
-
     {
       "type": "function",
       "function": {
         "name": "open-browser",
-        "description": "Open a URL in the default browser.",
+        "description": "開きます a URL in the 既定値 browser.",
         "parameters": {
           "type": "object",
           "properties": {
-            "url": { "type": "string", "description": "URL to open." }
+            "url": {
+              "type": "string",
+              "description": "URL to 開きます."
+            }
           },
-          "required": ["url"],
+          "required": [
+            "url"
+          ],
           "additionalProperties": false
         }
       }
     },
-
     {
       "type": "function",
       "function": {
         "name": "web-search",
-        "description": "Search the web using Google Custom Search API.",
+        "description": "検索します the web using Google Custom 検索します API.",
         "parameters": {
           "type": "object",
           "properties": {
-            "query": { "type": "string", "description": "Search query." },
+            "query": {
+              "type": "string",
+              "description": "検索します クエリ."
+            },
             "num_results": {
               "type": "integer",
               "minimum": 1,
               "maximum": 10,
               "default": 5,
-              "description": "Number of results to return (1–10)."
+              "description": "Number of 結果 to 返します (1–10)."
             }
           },
-          "required": ["query"],
+          "required": [
+            "query"
+          ],
           "additionalProperties": false
         }
       }
@@ -379,18 +486,22 @@
       "type": "function",
       "function": {
         "name": "web-fetch",
-        "description": "Fetch a webpage and return its content in Markdown format.",
+        "description": "Fetch a webpage and 返します its content in Markdown format.",
         "parameters": {
           "type": "object",
           "properties": {
-            "url": { "type": "string", "description": "URL to fetch." }
+            "url": {
+              "type": "string",
+              "description": "URL to fetch."
+            }
           },
-          "required": ["url"],
+          "required": [
+            "url"
+          ],
           "additionalProperties": false
         }
       }
     },
-
     {
       "type": "function",
       "function": {
@@ -399,11 +510,24 @@
         "parameters": {
           "type": "object",
           "properties": {
-            "reference_id": { "type": "string", "description": "Reference ID from truncation footer." },
-            "start_line": { "type": "integer", "description": "1-based inclusive start line." },
-            "end_line": { "type": "integer", "description": "1-based inclusive end line." }
+            "reference_id": {
+              "type": "string",
+              "description": "Reference ID from truncation footer."
+            },
+            "start_line": {
+              "type": "integer",
+              "description": "1-based inclusive start line."
+            },
+            "end_line": {
+              "type": "integer",
+              "description": "1-based inclusive end line."
+            }
           },
-          "required": ["reference_id", "start_line", "end_line"],
+          "required": [
+            "reference_id",
+            "start_line",
+            "end_line"
+          ],
           "additionalProperties": false
         }
       }
@@ -412,33 +536,49 @@
       "type": "function",
       "function": {
         "name": "search-untruncated",
-        "description": "Search within previously untruncated content by reference ID.",
+        "description": "検索します within previously untruncated content by reference ID.",
         "parameters": {
           "type": "object",
           "properties": {
-            "reference_id": { "type": "string", "description": "Reference ID from truncation footer." },
-            "search_term": { "type": "string", "description": "Text to search for." },
-            "context_lines": { "type": "integer", "default": 2, "description": "Context lines around matches." }
+            "reference_id": {
+              "type": "string",
+              "description": "Reference ID from truncation footer."
+            },
+            "search_term": {
+              "type": "string",
+              "description": "Text to 検索します for."
+            },
+            "context_lines": {
+              "type": "integer",
+              "default": 2,
+              "description": "Context lines around matches."
+            }
           },
-          "required": ["reference_id", "search_term"],
+          "required": [
+            "reference_id",
+            "search_term"
+          ],
           "additionalProperties": false
         }
       }
     },
-
     {
       "type": "function",
       "function": {
         "name": "view_tasklist",
-        "description": "View the current task list for the conversation.",
-        "parameters": { "type": "object", "properties": {}, "additionalProperties": false }
+        "description": "View the current task 一覧を取得します for the conversation.",
+        "parameters": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": false
+        }
       }
     },
     {
       "type": "function",
       "function": {
         "name": "add_tasks",
-        "description": "Add one or more new tasks (and optional subtasks) to the task list.",
+        "description": "Add one or more new tasks (and optional subtasks) to the task 一覧を取得します.",
         "parameters": {
           "type": "object",
           "properties": {
@@ -447,21 +587,39 @@
               "items": {
                 "type": "object",
                 "properties": {
-                  "name": { "type": "string" },
-                  "description": { "type": "string" },
-                  "parent_task_id": { "type": "string" },
-                  "after_task_id": { "type": "string" },
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "parent_task_id": {
+                    "type": "string"
+                  },
+                  "after_task_id": {
+                    "type": "string"
+                  },
                   "state": {
                     "type": "string",
-                    "enum": ["NOT_STARTED", "IN_PROGRESS", "CANCELLED", "COMPLETE"]
+                    "enum": [
+                      "NOT_STARTED",
+                      "IN_PROGRESS",
+                      "CANCELLED",
+                      "COMPLETE"
+                    ]
                   }
                 },
-                "required": ["name", "description"],
+                "required": [
+                  "name",
+                  "description"
+                ],
                 "additionalProperties": false
               }
             }
           },
-          "required": ["tasks"],
+          "required": [
+            "tasks"
+          ],
           "additionalProperties": false
         }
       }
@@ -470,7 +628,7 @@
       "type": "function",
       "function": {
         "name": "update_tasks",
-        "description": "Update one or more tasks' properties (state, name, description). Prefer batch updates.",
+        "description": "更新します one or more tasks' properties (state, name, description). Prefer batch 更新します.",
         "parameters": {
           "type": "object",
           "properties": {
@@ -479,20 +637,35 @@
               "items": {
                 "type": "object",
                 "properties": {
-                  "task_id": { "type": "string" },
+                  "task_id": {
+                    "type": "string"
+                  },
                   "state": {
                     "type": "string",
-                    "enum": ["NOT_STARTED", "IN_PROGRESS", "CANCELLED", "COMPLETE"]
+                    "enum": [
+                      "NOT_STARTED",
+                      "IN_PROGRESS",
+                      "CANCELLED",
+                      "COMPLETE"
+                    ]
                   },
-                  "name": { "type": "string" },
-                  "description": { "type": "string" }
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  }
                 },
-                "required": ["task_id"],
+                "required": [
+                  "task_id"
+                ],
                 "additionalProperties": false
               }
             }
           },
-          "required": ["tasks"],
+          "required": [
+            "tasks"
+          ],
           "additionalProperties": false
         }
       }
@@ -501,18 +674,22 @@
       "type": "function",
       "function": {
         "name": "reorganize_tasklist",
-        "description": "Major restructuring of the task list using a full markdown representation.",
+        "description": "Major restructuring of the task 一覧を取得します using a full markdown representation.",
         "parameters": {
           "type": "object",
           "properties": {
-            "markdown": { "type": "string", "description": "Full task list in markdown with exactly one root task." }
+            "markdown": {
+              "type": "string",
+              "description": "Full task 一覧を取得します in markdown with exactly one root task."
+            }
           },
-          "required": ["markdown"],
+          "required": [
+            "markdown"
+          ],
           "additionalProperties": false
         }
       }
     },
-
     {
       "type": "function",
       "function": {
@@ -521,14 +698,18 @@
         "parameters": {
           "type": "object",
           "properties": {
-            "memory": { "type": "string", "description": "One concise sentence to remember." }
+            "memory": {
+              "type": "string",
+              "description": "One concise sentence to remember."
+            }
           },
-          "required": ["memory"],
+          "required": [
+            "memory"
+          ],
           "additionalProperties": false
         }
       }
     },
-
     {
       "type": "function",
       "function": {
@@ -537,10 +718,18 @@
         "parameters": {
           "type": "object",
           "properties": {
-            "diagram_definition": { "type": "string", "description": "Mermaid definition code." },
-            "title": { "type": "string", "description": "Optional title for the diagram." }
+            "diagram_definition": {
+              "type": "string",
+              "description": "Mermaid definition code."
+            },
+            "title": {
+              "type": "string",
+              "description": "Optional title for the diagram."
+            }
           },
-          "required": ["diagram_definition"],
+          "required": [
+            "diagram_definition"
+          ],
           "additionalProperties": false
         }
       }

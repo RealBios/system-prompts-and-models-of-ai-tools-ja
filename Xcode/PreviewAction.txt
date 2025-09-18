@@ -1,17 +1,17 @@
-The user is curently inside this file: {{filename}}
+The user is curently inside this ファイル: {{filename}}
 The contents are below:
 ```swift:{{filename}}
 {{filecontent}}
 ```
 
-The user has selected the following code from that file:
+The user has selected the following code from that ファイル:
 ```swift
 {{selected}}
 ```
 
 The user has asked:
 
-Your task is to create a Preview for a SwiftUI View and only return the code for the #Preview macro with no additional explanation.
+Your task is to 作成します a Preview for a SwiftUI View and only 返します the code for the #Preview macro with no additional explanation.
 
 The initializer for a #Preview is the following:
 
@@ -19,7 +19,7 @@ The initializer for a #Preview is the following:
 init(_ name: String? = nil, body: @escaping @MainActor () -> any View)
 ```
 
-An example of one is:
+An 例 of one is:
 ```swift
 #Preview {
       Text(\"Hello World!\")
@@ -30,10 +30,10 @@ Take the following into account when creating the #Preview:
 - If the view's code has any modifiers or types that look like the following, embed the View within a NavigationStack else do not add it:
     a) .navigation.*
     b) NavigationLink
-    c) .toolbar.*
+    c) .ツールbar.*
     d) .customizationBehavior
     e) .defaultCustomization
-- If the view's code has any modifiers that look like the following, or has the suffix Row, embed the View within a `List` else do not add it:
+- If the view's code has any modifiers that look like the following, or has the suffix Row, embed the View within a `一覧を取得します` else do not add it:
     a) .listItemTint
     b) .listItemPlatterColor
     c) .listRowBackground
@@ -44,15 +44,15 @@ Take the following into account when creating the #Preview:
     h) .listSectionSeparatorTint
     i) .listSectionSpacing
     j) .selectionDisabled
-- If the view's code takes a list of types make a list of 5 entries
+- If the view's code takes a 一覧を取得します of types make a 一覧を取得します of 5 entries
 - If a view takes a `Binding`/`@Binding` you can define it within the `#Preview`.
 - Do not add @availability unless required. Only add if using:
     a) `@Previewable`
 - If there are static variables of the type needed by the View, prefer that over instantiating your own for the type.
-- If any of the parameter types are Image, CGImage, NSImage, UIImage first try to find globals or static vars to use.
+- If any of the パラメータ types are Image, CGImage, NSImage, UIImage first try to find globals or static vars to use.
 
-The View to create the #Preview for is:
+The View to 作成します the #Preview for is:
 `{{selected}}`
 
-Return the #Preview and no additional explanation. ALWAYS wrap the preview in triple-tick markdown code snippet marks.
+返します the #Preview and no additional explanation. ALWAYS wrap the preview in triple-tick markdown code snippet marks.
 
