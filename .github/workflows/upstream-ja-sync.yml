@@ -151,6 +151,9 @@ jobs:
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          # PR の向き先（ベース）を明示：main か 既定ブランチ
+          base: ${{ github.event.repository.default_branch }}  # 多くは 'main'
+          # PR 元ブランチ（上で作った bot/ja-sync-YYYYMMDD-HHMMSS）
           branch: ${{ steps.mkbranch.outputs.branch }}
           title: "Upstream sync + 日本語化（自動）"
           body: |
@@ -159,3 +162,4 @@ jobs:
             - JSONは `description` のみ日本語化、TXT/MDは本文日本語化（コードブロック保持）
             - ライセンスは GPL-3.0 を継承
           labels: auto-sync,i18n
+          delete-branch: true
