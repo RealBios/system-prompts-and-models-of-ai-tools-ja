@@ -64,11 +64,11 @@ jobs:
       # 7) 翻訳を実行（同名ファイルで内容日本語化／構造不変）
       - name: Run translator (same filenames, structure-preserving)
         env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}  # 任意
-          DEEPL_API_KEY:  ${{ secrets.DEEPL_API_KEY }}   # 任意
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          ENGINE_ORDER: openai
         run: |
           python .github/translation/translate_repo.py
-
+    
       # 8) jq を確実に用意（既にあればスキップ）
       - name: Ensure jq
         run: |
