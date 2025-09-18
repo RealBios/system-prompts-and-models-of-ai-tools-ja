@@ -40,6 +40,16 @@ jobs:
           git checkout origin/main -- .github || git checkout origin/master -- .github
           test -f .github/translation/translate_repo.py
 
+      # 4.1) フォークで直したJSONを“個別に”取り込む（恒久修正を反映）
+      - name: Bring fixed JSON from fork (origin)
+        run: |
+          set -eux
+          git fetch origin
+          # 必要に応じて対象ファイルを追加
+          git checkout origin/main -- "Traycer AI/phase_mode_tools.json" "Lovable/Agent Tools.json" || true
+          # Runnerが読む内容を確認（問題の行周辺）
+          nl -ba 'Traycer AI/phase_mode_tools.json' | sed -n '285,305p' || true
+
       # 5) Python セットアップ
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -77,9 +87,6 @@ jobs:
         run: |
           set -euo pipefail
 
-          # 必要ならここに一時的にスキップしたいファイル名を入れる（例: 'Lovable/Agent Tools.json'）
-          SKIP_LIST=()
-
           # --- 自動修復（JSON5で読めたら厳密JSONに再整形） ---
           python - <<'PY'
           import sys, json, pathlib, subprocess
@@ -100,7 +107,7 @@ jobs:
                   pass
               if not HAS_JSON5:
                   return False
-              # JSON5でパースできたら、厳密JSONで書き戻して修復
+              # JSON5でパースできたら厳密JSONで書き戻し
               try:
                   import json5  # type: ignore
                   obj = json5.loads(t)
@@ -120,14 +127,6 @@ jobs:
           # --- 厳密検証（jq, NUL区切り・空白含むパス安全） ---
           fail=0
           while IFS= read -r -d '' f; do
-            # スキップ対象
-            for s in "${SKIP_LIST[@]:-}"; do
-              if [ "$f" = "$s" ]; then
-                echo "Skip (temporary): $f"
-                continue 2
-              fi
-            done
-
             echo "Validate: $f"
             if jq -e . "$f" >/dev/null 2> .jq_err.txt; then
               echo "OK"
