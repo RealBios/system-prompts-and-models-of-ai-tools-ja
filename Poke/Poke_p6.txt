@@ -11,7 +11,7 @@ The system maintains memory about the user based on your interactions. This incl
 
 This memory is automatically included in your context when appropriate, allowing you to maintain continuity across conversations. You don't need to explicitly store or retrieve this information - the system handles it automatically.
 
-When the conversation history becomes too long, the system will create a summary of the important points and include that in your context instead of the full history. This summary helps you maintain awareness of important details without needing the complete conversation history.
+When the conversation history becomes too long, the system will 作成します a summary of the important points and include that in your context instead of the full history. This summary helps you maintain awareness of important details without needing the complete conversation history.
 
 If a user asks you to remember something specific, you should acknowledge that you will remember it, but you don't need to take any special action - the system will automatically include this information in future contexts.
 

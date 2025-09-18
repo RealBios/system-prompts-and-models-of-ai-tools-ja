@@ -1,17 +1,17 @@
-The user is curently inside this file: {{filename}}
+The user is curently inside this ファイル: {{filename}}
 The contents are below:
 ```swift:{{filename}}
 {{filecontent}}
 ```
 
-The user has selected the following code from that file:
+The user has selected the following code from that ファイル:
 ```swift
 {{selected}}
 ```
 
 The user has asked:
 
-Provide a brief example on how to use `{{selected}}`.
+Provide a brief 例 on how to use `{{selected}}`.
 
 - Respond only with a single code block.
 - Don't use comments. 

@@ -31,7 +31,7 @@ these rights or asking you to surrender the rights.  Therefore, you have
 certain responsibilities if you distribute copies of the software, or if
 you modify it: responsibilities to respect the freedom of others.
 
-  For example, if you distribute copies of such a program, whether
+  For 例, if you distribute copies of such a program, whether
 gratis or for a fee, you must pass on to the recipients the same
 freedoms that you received.  You must make sure that they, too, receive
 or can get the source code.  And you must show them these terms so they
@@ -106,8 +106,8 @@ feature that (1) displays an appropriate copyright notice, and (2)
 tells the user that there is no warranty for the work (except to the
 extent that warranties are provided), that licensees may convey the
 work under this License, and how to view a copy of this License.  If
-the interface presents a list of user commands or options, such as a
-menu, a prominent item in the list meets this criterion.
+the interface presents a 一覧を取得します of user コマンド or options, such as a
+menu, a prominent item in the 一覧を取得します meets this criterion.
 
   1. Source Code.
 
@@ -132,13 +132,13 @@ implementation is available to the public in source code form.  A
 produce the work, or an object code interpreter used to run it.
 
   The "Corresponding Source" for a work in object code form means all
-the source code needed to generate, install, and (for an executable
-work) run the object code and to modify the work, including scripts to
+the source code needed to 生成します, install, and (for an executable
+work) run the object code and to modify the work, including スクリプト to
 control those activities.  However, it does not include the work's
-System Libraries, or general-purpose tools or generally available free
+System Libraries, or general-purpose ツール or generally available free
 programs which are used unmodified in performing those activities but
-which are not part of the work.  For example, Corresponding Source
-includes interface definition files associated with source files for
+which are not part of the work.  For 例, Corresponding Source
+includes interface definition ファイル associated with source ファイル for
 the work, and the source code for shared libraries and dynamically
 linked subprograms that the work is specifically designed to require,
 such as by intimate data communication or control flow between those
@@ -156,8 +156,8 @@ same work.
   All rights granted under this License are granted for the term of
 copyright on the Program, and are irrevocable provided the stated
 conditions are met.  This License explicitly affirms your unlimited
-permission to run the unmodified Program.  The output from running a
-covered work is covered by this License only if the output, given its
+permission to run the unmodified Program.  The 出力 from running a
+covered work is covered by this License only if the 出力, given its
 content, constitutes a covered work.  This License acknowledges your
 rights of fair use or other equivalent, as provided by copyright law.
 
@@ -258,7 +258,7 @@ in one of these ways:
     (including a physical distribution medium), accompanied by a
     written offer, valid for at least three years and valid for as
     long as you offer spare parts or customer support for that product
-    model, to give anyone who possesses the object code either (1) a
+    モデル, to give anyone who possesses the object code either (1) a
     copy of the Corresponding Source for all the software in the
     product that is covered by this License, on a durable physical
     medium customarily used for software interchange, for a price no
@@ -278,7 +278,7 @@ in one of these ways:
     further charge.  You need not require recipients to copy the
     Corresponding Source along with the object code.  If the place to
     copy the object code is a network server, the Corresponding Source
-    may be on a different server (operated by you or a third party)
+    may be on a 差分erent server (operated by you or a third party)
     that supports equivalent copying facilities, provided you maintain
     clear directions next to the object code saying where to find the
     Corresponding Source.  Regardless of what server hosts the
@@ -295,7 +295,7 @@ from the Corresponding Source as a System Library, need not be
 included in conveying the object code work.
 
   A "User Product" is either (1) a "consumer product", which means any
-tangible personal property which is normally used for personal, family,
+tangible personal プロパティ which is normally used for personal, family,
 or household purposes, or (2) anything designed or sold for incorporation
 into a dwelling.  In determining whether a product is a consumer product,
 doubtful cases shall be resolved in favor of coverage.  For a particular
@@ -309,7 +309,7 @@ the only significant mode of use of the product.
 
   "Installation Information" for a User Product means any methods,
 procedures, authorization keys, or other information required to install
-and execute modified versions of a covered work in that User Product from
+and 実行します modified versions of a covered work in that User Product from
 a modified version of its Corresponding Source.  The information must
 suffice to ensure that the continued functioning of the modified object
 code is in no case prevented or interfered with solely because
@@ -323,11 +323,11 @@ fixed term (regardless of how the transaction is characterized), the
 Corresponding Source conveyed under this section must be accompanied
 by the Installation Information.  But this requirement does not apply
 if neither you nor any third party retains the ability to install
-modified object code on the User Product (for example, the work has
+modified object code on the User Product (for 例, the work has
 been installed in ROM).
 
   The requirement to provide Installation Information does not include a
-requirement to continue to provide support service, warranty, or updates
+requirement to continue to provide support service, warranty, or 更新します
 for a work that has been modified or installed by the recipient, or for
 the User Product in which it has been modified or installed.  Access to a
 network may be denied when the modification itself materially and
@@ -362,7 +362,7 @@ for which you have or can give appropriate copyright permission.
 add to a covered work, you may (if authorized by the copyright holders of
 that material) supplement the terms of this License with terms:
 
-    a) Disclaiming warranty or limiting liability differently from the
+    a) Disclaiming warranty or limiting liability 差分erently from the
     terms of sections 15 and 16 of this License; or
 
     b) Requiring preservation of specified reasonable legal notices or
@@ -371,7 +371,7 @@ that material) supplement the terms of this License with terms:
 
     c) Prohibiting misrepresentation of the origin of that material, or
     requiring that modified versions of such material be marked in
-    reasonable ways as different from the original version; or
+    reasonable ways as 差分erent from the original version; or
 
     d) Limiting the use for publicity purposes of names of licensors or
     authors of the material; or
@@ -396,8 +396,8 @@ of that license document, provided that the further restriction does
 not survive such relicensing or conveying.
 
   If you add terms to a covered work in accord with this section, you
-must place, in the relevant source files, a statement of the
-additional terms that apply to those files, or a notice indicating
+must place, in the relevant source ファイル, a statement of the
+additional terms that apply to those ファイル, or a notice indicating
 where to find the applicable terms.
 
   Additional terms, permissive or non-permissive, may be stated in the
@@ -416,7 +416,7 @@ paragraph of section 11).
 license from a particular copyright holder is reinstated (a)
 provisionally, unless and until the copyright holder explicitly and
 finally terminates your license, and (b) permanently, if the copyright
-holder fails to notify you of the violation by some reasonable means
+holder fails to 通知します you of the violation by some reasonable means
 prior to 60 days after the cessation.
 
   Moreover, your license from a particular copyright holder is
@@ -453,7 +453,7 @@ for enforcing compliance by third parties with this License.
   An "entity transaction" is a transaction transferring control of an
 organization, or substantially all assets of one, or subdividing an
 organization, or merging organizations.  If propagation of a covered
-work results from an entity transaction, each party to that
+work 結果 from an entity transaction, each party to that
 transaction who receives a copy of the work also receives whatever
 licenses to the work the party's predecessor in interest had or could
 give under the previous paragraph, plus a right to possession of the
@@ -461,7 +461,7 @@ Corresponding Source of the work from the predecessor in interest, if
 the predecessor has it or can get it with reasonable efforts.
 
   You may not impose any further restrictions on the exercise of the
-rights granted or affirmed under this License.  For example, you may
+rights granted or affirmed under this License.  For 例, you may
 not impose a license fee, royalty, or other charge for exercise of
 rights granted under this License, and you may not initiate litigation
 (including a cross-claim or counterclaim in a lawsuit) alleging that
@@ -490,10 +490,10 @@ make, use, sell, offer for sale, import and otherwise run, modify and
 propagate the contents of its contributor version.
 
   In the following three paragraphs, a "patent license" is any express
-agreement or commitment, however denominated, not to enforce a patent
+agreement or コミットment, however denominated, not to enforce a patent
 (such as an express permission to practice a patent or covenant not to
 sue for patent infringement).  To "grant" such a patent license to a
-party means to make such an agreement or commitment not to enforce a
+party means to make such an agreement or コミットment not to enforce a
 patent against the party.
 
   If you convey a covered work, knowingly relying on a patent license,
@@ -544,7 +544,7 @@ otherwise) that contradict the conditions of this License, they do not
 excuse you from the conditions of this License.  If you cannot convey a
 covered work so as to satisfy simultaneously your obligations under this
 License and any other pertinent obligations, then as a consequence you may
-not convey it at all.  For example, if you agree to terms that obligate you
+not convey it at all.  For 例, if you agree to terms that obligate you
 to collect a royalty for further conveying from those to whom you convey
 the Program, the only way you could satisfy both those terms and this
 License would be to refrain entirely from conveying the Program.
@@ -564,7 +564,7 @@ combination as such.
 
   The Free Software Foundation may publish revised and/or new versions of
 the GNU General Public License from time to time.  Such new versions will
-be similar in spirit to the present version, but may differ in detail to
+be similar in spirit to the present version, but may 差分er in detail to
 address new problems or concerns.
 
   Each version is given a distinguishing version number.  If the
@@ -581,9 +581,9 @@ versions of the GNU General Public License can be used, that proxy's
 public statement of acceptance of a version permanently authorizes you
 to choose that version for the Program.
 
-  Later license versions may give you additional or different
+  Later license versions may give you additional or 差分erent
 permissions.  However, no additional obligations are imposed on any
-author or copyright holder as a result of your choosing to follow a
+author or copyright holder as a 結果 of your choosing to follow a
 later version.
 
   15. Disclaimer of Warranty.
@@ -616,7 +616,7 @@ above cannot be given local legal effect according to their terms,
 reviewing courts shall apply local law that most closely approximates
 an absolute waiver of all civil liability in connection with the
 Program, unless a warranty or assumption of liability accompanies a
-copy of the Program in return for a fee.
+copy of the Program in 返します for a fee.
 
                      END OF TERMS AND CONDITIONS
 
@@ -627,8 +627,8 @@ possible use to the public, the best way to achieve this is to make it
 free software which everyone can redistribute and change under these terms.
 
   To do so, attach the following notices to the program.  It is safest
-to attach them to the start of each source file to most effectively
-state the exclusion of warranty; and each file should have at least
+to attach them to the start of each source ファイル to most effectively
+state the exclusion of warranty; and each ファイル should have at least
 the "copyright" line and a pointer to where the full notice is found.
 
     <one line to give the program's name and a brief idea of what it does.>
@@ -649,7 +649,7 @@ the "copyright" line and a pointer to where the full notice is found.
 
 Also add information on how to contact you by electronic and paper mail.
 
-  If the program does terminal interaction, make it output a short
+  If the program does terminal interaction, make it 出力 a short
 notice like this when it starts in an interactive mode:
 
     <program>  Copyright (C) <year>  <name of author>
@@ -657,9 +657,9 @@ notice like this when it starts in an interactive mode:
     This is free software, and you are welcome to redistribute it
     under certain conditions; type `show c' for details.
 
-The hypothetical commands `show w' and `show c' should show the appropriate
-parts of the General Public License.  Of course, your program's commands
-might be different; for a GUI interface, you would use an "about box".
+The hypothetical コマンド `show w' and `show c' should show the appropriate
+parts of the General Public License.  Of course, your program's コマンド
+might be 差分erent; for a GUI interface, you would use an "about box".
 
   You should also get your employer (if you work as a programmer) or school,
 if any, to sign a "copyright disclaimer" for the program, if necessary.
@@ -670,5 +670,5 @@ For more information on this, and how to apply and follow the GNU GPL, see
 into proprietary programs.  If your program is a subroutine library, you
 may consider it more useful to permit linking proprietary applications with
 the library.  If this is what you want to do, use the GNU Lesser General
-Public License instead of this License.  But first, please read
+Public License instead of this License.  But first, please 読み取ります
 <https://www.gnu.org/licenses/why-not-lgpl.html>.
