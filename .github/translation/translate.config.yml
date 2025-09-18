@@ -1,16 +1,47 @@
 target_lang: ja
-bilingual: false  # true にすると日本語＋英語併記
+bilingual: false
 
-translate_json:
-  enabled: true
-  # JSONは構造不変。以下のキーの「値」だけ翻訳します
-  keys: ["description"]
+# 例：OpenAI優先→無ければDeepL
+engine_order: ["openai", "deepl"]
 
 translate_text:
   enabled: true
   exts: [".txt", ".md"]
-  # ダブルクォートでエスケープが効いて落ちないよう、シングルクォートで正規表現を記載
   exclude:
-    - '^\.github/translation/'
+    - '^\\.github/translation/'   # 自分自身は除外
+
+translate_json:
+  enabled: true
+  mode: include_except_ignored   # 「除外キー以外は翻訳」
+  include_keys: []               # 空＝すべて候補
+  ignore_keys:
+    # スキーマや識別子は壊さない
+    - "$schema"
+    - "schema"
+    - "type"
+    - "enum"
+    - "id"
+    - "uid"
+    - "name"
+    - "key"
+    - "keys"
+    - "version"
+    - "model"
+    - "provider"
+    - "endpoint"
+    - "language"
+  # 長文や説明系は確実に翻訳
+  prefer_keys:
+    - "description"
+    - "prompt"
+    - "system"
+    - "system_prompt"
+    - "instructions"
+    - "user"
+    - "assistant"
+    - "title"
+    - "summary"
+    - "help"
+    - "examples"
 
 glossary_csv: ".github/translation/glossary_ja_en.csv"
