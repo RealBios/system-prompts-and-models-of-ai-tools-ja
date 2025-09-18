@@ -24,6 +24,7 @@ jobs:
         run: |
           git remote add upstream https://github.com/x1xhlol/system-prompts-and-models-of-ai-tools.git || true
           git fetch upstream main
+          git fetch origin
 
       # 3) upstream/main から作業ブランチ作成
       - name: Create working branch from upstream/main
@@ -31,23 +32,21 @@ jobs:
         run: |
           BRANCH="bot/ja-sync-$(date -u +%Y%m%d-%H%M%S)"
           git checkout -B "$BRANCH" upstream/main
-          echo "branch=$BRANCH" >> $GITHUB_OUTPUT
+          echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
 
       # 4) フォークの .github（翻訳キット）を上書きで持ってくる
       - name: Import JA kit (.github) from fork (origin)
         run: |
-          git fetch origin
           git checkout origin/main -- .github || git checkout origin/master -- .github
           test -f .github/translation/translate_repo.py
 
-      # 4.1) フォークで直したJSONを“個別に”取り込む（恒久修正を反映）
+      # 4.1) フォークで直したJSONを個別に取り込む（恒久修正を反映）
       - name: Bring fixed JSON from fork (origin)
         run: |
           set -eux
-          git fetch origin
           # 必要に応じて対象ファイルを追加
           git checkout origin/main -- "Traycer AI/phase_mode_tools.json" "Lovable/Agent Tools.json" || true
-          # Runnerが読む内容を確認（問題の行周辺）
+          # Runner が読む内容を確認（問題の行周辺）
           nl -ba 'Traycer AI/phase_mode_tools.json' | sed -n '285,305p' || true
 
       # 5) Python セットアップ
@@ -107,7 +106,7 @@ jobs:
                   pass
               if not HAS_JSON5:
                   return False
-              # JSON5でパースできたら厳密JSONで書き戻し
+              # JSON5でパースできたら、厳密JSONで書き戻し
               try:
                   import json5  # type: ignore
                   obj = json5.loads(t)
@@ -146,15 +145,23 @@ jobs:
           done < <(git ls-files -z '*.json')
           exit $fail
 
-      # 10) PR を作成
+      # 9.9) 作業ブランチを先にリモートへ作成（存在しなくてもOK）
+      - name: Push working branch (ensure remote exists)
+        run: |
+          set -eux
+          git push -u origin "${{ steps.mkbranch.outputs.branch }}" || true
+
+      # 9.95) 一時ファイルを掃除（PRに混ざらないように）
+      - name: Clean temp files
+        run: rm -f .jq_err.txt || true
+
+      # 10) PR を作成（base を明示）
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          # PR の向き先（ベース）を明示：main か 既定ブランチ
-          base: ${{ github.event.repository.default_branch }}  # 多くは 'main'
-          # PR 元ブランチ（上で作った bot/ja-sync-YYYYMMDD-HHMMSS）
-          branch: ${{ steps.mkbranch.outputs.branch }}
+          base: ${{ github.event.repository.default_branch }}  # 例: main
+          branch: ${{ steps.mkbranch.outputs.branch }}         # さっき push した作業ブランチ
           title: "Upstream sync + 日本語化（自動）"
           body: |
             - Upstream 最新を取り込み
