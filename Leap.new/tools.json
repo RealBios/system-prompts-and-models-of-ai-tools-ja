@@ -2,7 +2,7 @@
   "tools": [
     {
       "name": "create_artifact",
-      "description": "Creates a comprehensive artifact containing all project files for building full-stack applications with Encore.ts backend and React frontend",
+      "description": "作成します a comprehensive artifact containing all project ファイル for building full-stack applications with Encore.ts backend and React frontend",
       "parameters": {
         "type": "object",
         "properties": {
@@ -25,31 +25,44 @@
               "properties": {
                 "path": {
                   "type": "string",
-                  "description": "Relative file path from project root"
+                  "description": "Relative ファイル パス from project root"
                 },
                 "content": {
                   "type": "string",
-                  "description": "Complete file content - NEVER use placeholders or truncation"
+                  "description": "Complete ファイル content - NEVER use placeholders or truncation"
                 },
                 "action": {
                   "type": "string",
-                  "enum": ["create", "modify", "delete", "move"],
-                  "description": "Action to perform on the file"
+                  "enum": [
+                    "create",
+                    "modify",
+                    "delete",
+                    "move"
+                  ],
+                  "description": "Action to perform on the ファイル"
                 },
                 "from": {
                   "type": "string",
-                  "description": "Source path for move operations"
+                  "description": "Source パス for move operations"
                 },
                 "to": {
-                  "type": "string", 
-                  "description": "Target path for move operations"
+                  "type": "string",
+                  "description": "Target パス for move operations"
                 }
               },
-              "required": ["path", "action"]
+              "required": [
+                "path",
+                "action"
+              ]
             }
           }
         },
-        "required": ["id", "title", "commit", "files"]
+        "required": [
+          "id",
+          "title",
+          "commit",
+          "files"
+        ]
       }
     },
     {
@@ -73,12 +86,18 @@
                 },
                 "method": {
                   "type": "string",
-                  "enum": ["GET", "POST", "PUT", "DELETE", "PATCH"],
+                  "enum": [
+                    "GET",
+                    "POST",
+                    "PUT",
+                    "DELETE",
+                    "PATCH"
+                  ],
                   "description": "HTTP method"
                 },
                 "path": {
                   "type": "string",
-                  "description": "API path with parameters (e.g., '/users/:id')"
+                  "description": "API パス with パラメータ (e.g., '/users/:id')"
                 },
                 "expose": {
                   "type": "boolean",
@@ -89,7 +108,11 @@
                   "description": "Whether endpoint requires authentication"
                 }
               },
-              "required": ["name", "method", "path"]
+              "required": [
+                "name",
+                "method",
+                "path"
+              ]
             }
           },
           "database": {
@@ -123,22 +146,30 @@
                             "type": "string"
                           }
                         },
-                        "required": ["name", "type"]
+                        "required": [
+                          "name",
+                          "type"
+                        ]
                       }
                     }
                   },
-                  "required": ["name", "columns"]
+                  "required": [
+                    "name",
+                    "columns"
+                  ]
                 }
               }
             }
           }
         },
-        "required": ["serviceName"]
+        "required": [
+          "serviceName"
+        ]
       }
     },
     {
       "name": "create_react_component",
-      "description": "Creates a React component with TypeScript and Tailwind CSS",
+      "description": "作成します a React component with TypeScript and Tailwind CSS",
       "parameters": {
         "type": "object",
         "properties": {
@@ -148,7 +179,7 @@
           },
           "path": {
             "type": "string",
-            "description": "Path where component should be created"
+            "description": "パス where component should be created"
           },
           "props": {
             "type": "array",
@@ -165,7 +196,10 @@
                   "type": "boolean"
                 }
               },
-              "required": ["name", "type"]
+              "required": [
+                "name",
+                "type"
+              ]
             }
           },
           "useBackend": {
@@ -177,7 +211,11 @@
             "properties": {
               "theme": {
                 "type": "string",
-                "enum": ["light", "dark", "system"],
+                "enum": [
+                  "light",
+                  "dark",
+                  "system"
+                ],
                 "description": "Component theme"
               },
               "responsive": {
@@ -191,7 +229,10 @@
             }
           }
         },
-        "required": ["componentName", "path"]
+        "required": [
+          "componentName",
+          "path"
+        ]
       }
     },
     {
@@ -202,14 +243,21 @@
         "properties": {
           "provider": {
             "type": "string",
-            "enum": ["clerk"],
+            "enum": [
+              "clerk"
+            ],
             "description": "Authentication provider"
           },
           "features": {
             "type": "array",
             "items": {
               "type": "string",
-              "enum": ["sign-in", "sign-up", "user-profile", "session-management"]
+              "enum": [
+                "sign-in",
+                "sign-up",
+                "user-profile",
+                "session-management"
+              ]
             }
           },
           "protectedRoutes": {
@@ -220,12 +268,14 @@
             "description": "API endpoints that require authentication"
           }
         },
-        "required": ["provider"]
+        "required": [
+          "provider"
+        ]
       }
     },
     {
       "name": "create_database_migration",
-      "description": "Creates a new SQL migration file for Encore.ts database",
+      "description": "作成します a new SQL migration ファイル for Encore.ts database",
       "parameters": {
         "type": "object",
         "properties": {
@@ -244,18 +294,31 @@
               "properties": {
                 "type": {
                   "type": "string",
-                  "enum": ["CREATE_TABLE", "ALTER_TABLE", "DROP_TABLE", "CREATE_INDEX", "DROP_INDEX"]
+                  "enum": [
+                    "CREATE_TABLE",
+                    "ALTER_TABLE",
+                    "DROP_TABLE",
+                    "CREATE_INDEX",
+                    "DROP_INDEX"
+                  ]
                 },
                 "sql": {
                   "type": "string",
                   "description": "Raw SQL for the operation"
                 }
               },
-              "required": ["type", "sql"]
+              "required": [
+                "type",
+                "sql"
+              ]
             }
           }
         },
-        "required": ["migrationName", "version", "operations"]
+        "required": [
+          "migrationName",
+          "version",
+          "operations"
+        ]
       }
     },
     {
@@ -266,32 +329,39 @@
         "properties": {
           "streamType": {
             "type": "string",
-            "enum": ["streamIn", "streamOut", "streamInOut"],
+            "enum": [
+              "streamIn",
+              "streamOut",
+              "streamInOut"
+            ],
             "description": "Type of streaming API"
           },
           "endpoint": {
             "type": "string",
-            "description": "Stream endpoint path"
+            "description": "Stream endpoint パス"
           },
           "messageTypes": {
             "type": "object",
             "properties": {
               "handshake": {
                 "type": "object",
-                "description": "Handshake message schema"
+                "description": "Handshake message スキーマ"
               },
               "incoming": {
                 "type": "object",
-                "description": "Incoming message schema"
+                "description": "Incoming message スキーマ"
               },
               "outgoing": {
                 "type": "object",
-                "description": "Outgoing message schema"
+                "description": "Outgoing message スキーマ"
               }
             }
           }
         },
-        "required": ["streamType", "endpoint"]
+        "required": [
+          "streamType",
+          "endpoint"
+        ]
       }
     },
     {
@@ -318,16 +388,21 @@
                   "description": "Whether this secret is required for the app to function"
                 }
               },
-              "required": ["name", "description"]
+              "required": [
+                "name",
+                "description"
+              ]
             }
           }
         },
-        "required": ["secrets"]
+        "required": [
+          "secrets"
+        ]
       }
     },
     {
       "name": "setup_object_storage",
-      "description": "Sets up object storage buckets for file uploads",
+      "description": "Sets up object storage buckets for ファイル アップロードします",
       "parameters": {
         "type": "object",
         "properties": {
@@ -353,14 +428,18 @@
                   "items": {
                     "type": "string"
                   },
-                  "description": "Allowed file MIME types"
+                  "description": "Allowed ファイル MIME types"
                 }
               },
-              "required": ["name"]
+              "required": [
+                "name"
+              ]
             }
           }
         },
-        "required": ["buckets"]
+        "required": [
+          "buckets"
+        ]
       }
     },
     {
@@ -384,11 +463,17 @@
                 },
                 "deliveryGuarantee": {
                   "type": "string",
-                  "enum": ["at-least-once", "exactly-once"],
+                  "enum": [
+                    "at-least-once",
+                    "exactly-once"
+                  ],
                   "description": "Message delivery guarantee"
                 }
               },
-              "required": ["name", "eventSchema"]
+              "required": [
+                "name",
+                "eventSchema"
+              ]
             }
           },
           "subscriptions": {
@@ -409,23 +494,33 @@
                   "description": "Handler function description"
                 }
               },
-              "required": ["name", "topicName", "handler"]
+              "required": [
+                "name",
+                "topicName",
+                "handler"
+              ]
             }
           }
         },
-        "required": ["topics"]
+        "required": [
+          "topics"
+        ]
       }
     },
     {
       "name": "create_test_suite",
-      "description": "Creates test suites using Vitest for backend and frontend",
+      "description": "作成します test suites using Vitest for backend and frontend",
       "parameters": {
         "type": "object",
         "properties": {
           "testType": {
             "type": "string",
-            "enum": ["backend", "frontend", "integration"],
-            "description": "Type of tests to create"
+            "enum": [
+              "backend",
+              "frontend",
+              "integration"
+            ],
+            "description": "Type of tests to 作成します"
           },
           "testFiles": {
             "type": "array",
@@ -434,11 +529,11 @@
               "properties": {
                 "path": {
                   "type": "string",
-                  "description": "Test file path"
+                  "description": "Test ファイル パス"
                 },
                 "description": {
                   "type": "string",
-                  "description": "What the test file covers"
+                  "description": "What the test ファイル covers"
                 },
                 "testCases": {
                   "type": "array",
@@ -452,15 +547,23 @@
                         "type": "string"
                       }
                     },
-                    "required": ["name"]
+                    "required": [
+                      "name"
+                    ]
                   }
                 }
               },
-              "required": ["path", "testCases"]
+              "required": [
+                "path",
+                "testCases"
+              ]
             }
           }
         },
-        "required": ["testType", "testFiles"]
+        "required": [
+          "testType",
+          "testFiles"
+        ]
       }
     }
   ],
@@ -512,4 +615,3 @@
     ]
   }
 }
-
