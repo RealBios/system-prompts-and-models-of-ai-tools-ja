@@ -9,15 +9,16 @@ try:
 except json.JSONDecodeError:
     pass
 
-# 2) "description": " … " の値の中だけを対象に、未エスケープの " を \" に
+# 2) "description": " …… " の値の中だけで、未エスケープの " を \" に
 def fix_desc(m):
     head, body = m.group(1), m.group(2)
-    body2 = re.sub(r'(?<!\\)"', r'\\"', body)    # 未エスケープのみ置換
+    # 既に \" のものは除外して、それ以外の " をエスケープ
+    body2 = re.sub(r'(?<!\\)"', r'\\"', body)
     return head + body2 + '"'
 
 s2 = re.sub(r'("description"\s*:\s*")([\s\S]*?)"', fix_desc, s, count=1)
 
-# 3) 厳密JSONで再整形（失敗したら例外）
+# 3) 厳密JSONで再整形（エラーなら例外→どこが壊れてるか確認できる）
 obj = json.loads(s2)
 p.write_text(json.dumps(obj, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 print("fixed")
