@@ -155,12 +155,12 @@ class Translator:
             "temperature": 0.2,
         }
         # 強化リトライ（429/5xx）- より長い待機時間
-        for attempt in range(5):
+        for attempt in range(30):
             r = requests.post(url, headers=headers, json=payload, timeout=120)
             if r.status_code in (429, 500, 502, 503):
-                # 指数バックオフ: 30, 60, 120, 240, 480秒
-                wait_time = 30 * (2 ** attempt)
-                print(f"Rate limited, waiting {wait_time} seconds...")
+                # 指数バックオフ: 300, 600, 1200, 2400, 4800秒 (5分, 10分, 20分, 40分, 80分...)
+                wait_time = 300 * (2 ** attempt)
+                print(f"Rate limited, waiting {wait_time} seconds ({wait_time//60} minutes)...")
                 time.sleep(wait_time)
                 continue
             r.raise_for_status()
