@@ -1,6 +1,6 @@
 # .github/translation/translate_repo.py
 from __future__ import annotations
-import os, re, json, time, csv, sys
+import os, re, json, time, csv, sys, hashlib
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
@@ -86,6 +86,17 @@ def is_probably_identifier(s: str) -> bool:
     # 短い識別子やパス/IDっぽいものは翻訳しない方が安全
     return bool(re.fullmatch(r"[A-Za-z0-9_\-\.\/:]+", s or ""))
 
+def get_file_batch(p: Path, batch_total: int) -> int:
+    """ファイルパスからバッチ番号を決定（ハッシュベース）"""
+    if batch_total <= 1:
+        return 0
+    path_hash = hashlib.md5(str(p).encode()).hexdigest()
+    return int(path_hash, 16) % batch_total
+
+def should_process_file(p: Path, batch_current: int, batch_total: int) -> bool:
+    """このバッチで処理すべきファイルか判定"""
+    return get_file_batch(p, batch_total) == batch_current
+
 # =========================
 # Translators
 # =========================
@@ -154,13 +165,13 @@ class Translator:
             ],
             "temperature": 0.2,
         }
-        # 強化リトライ（429/5xx）- より長い待機時間
-        for attempt in range(30):
-            r = requests.post(url, headers=headers, json=payload, timeout=120)
+        # 改善リトライ（429/5xx）- より現実的な待機時間
+        for attempt in range(10):  # 30回から10回に減らす
+            r = requests.post(url, headers=headers, json=payload, timeout=300)  # タイムアウトを300秒に延長
             if r.status_code in (429, 500, 502, 503):
-                # 指数バックオフ: 300, 600, 1200, 2400, 4800秒 (5分, 10分, 20分, 40分, 80分...)
-                wait_time = 300 * (2 ** attempt)
-                print(f"Rate limited, waiting {wait_time} seconds ({wait_time//60} minutes)...")
+                # 指数バックオフ: 60, 120, 240, 480, 960秒 (1分, 2分, 4分, 8分, 16分...)
+                wait_time = 60 * (2 ** attempt)
+                print(f"Rate limited (attempt {attempt+1}/10), waiting {wait_time} seconds ({wait_time//60} minutes)...")
                 time.sleep(wait_time)
                 continue
             r.raise_for_status()
@@ -180,13 +191,15 @@ class Translator:
         data = {"text": text, "target_lang": t}
         headers = {"Authorization": f"DeepL-Auth-Key {self.deepl_key}"}
 
-        for attempt in range(3):
-            r = requests.post(url, data=data, headers=headers, timeout=120)
+        for attempt in range(5):  # 3回から5回に増やし、より粘り強く
+            r = requests.post(url, data=data, headers=headers, timeout=300)  # タイムアウトを300秒に延長
             if r.status_code == 456:
                 # クォータ切れ/契約外 → 即フォールバック
                 raise RuntimeError("DeepL 456 Unrecoverable (quota/plan).")
             if r.status_code in (429, 500, 502, 503):
-                time.sleep(1.5 * (attempt + 1))
+                wait_time = 5 * (attempt + 1)  # より長い待機: 5, 10, 15, 20, 25秒
+                print(f"DeepL rate limited (attempt {attempt+1}/5), waiting {wait_time} seconds...")
+                time.sleep(wait_time)
                 continue
             r.raise_for_status()
             j = r.json()
@@ -279,6 +292,18 @@ def main() -> None:
     target_lang = cfg.get("target_lang", "ja")
     tr = Translator(cfg)
 
+    # 環境変数でファイル間待機時間を制御（デフォルト15秒）
+    file_delay = int(os.getenv("TRANSLATE_FILE_DELAY", "15"))
+    print(f"Debug: File processing delay: {file_delay} seconds")
+
+    # バッチ処理設定（GitHub Actionsでの並列実行用）
+    batch_current = int(os.getenv("BATCH_CURRENT", "0"))
+    batch_total = int(os.getenv("BATCH_TOTAL", "1"))
+    if batch_total > 1:
+        print(f"Debug: Running batch {batch_current + 1}/{batch_total}")
+    else:
+        print("Debug: Running single batch mode")
+
     # --- TEXT (.txt, .md)
     text_cfg = cfg.get("translate_text", {})
     if text_cfg.get("enabled", True):
@@ -291,10 +316,14 @@ def main() -> None:
                 rel = str(p.relative_to(ROOT)).replace("\\", "/")
                 if any(rx.search(rel) for rx in excludes):
                     continue
+                # バッチ処理：このファイルはこのバッチで処理すべきか
+                if not should_process_file(p, batch_current, batch_total):
+                    continue
                 print(f"[text] {rel}")
                 translate_plain_file(p, tr, target_lang, glossary)
                 # ファイル間レート制限対策
-                time.sleep(30)
+                if file_delay > 0:
+                    time.sleep(file_delay)
 
     # --- JSON (*.json)
     json_cfg = cfg.get("translate_json", {})
@@ -303,10 +332,14 @@ def main() -> None:
             rel = str(p.relative_to(ROOT)).replace("\\", "/")
             if rel.startswith(".github/translation/"):
                 continue  # 翻訳ツール自身は除外
+            # バッチ処理：このファイルはこのバッチで処理すべきか
+            if not should_process_file(p, batch_current, batch_total):
+                continue
             print(f"[json] {rel}")
             translate_json_file(p, tr, target_lang, json_cfg, glossary)
             # ファイル間レート制限対策
-            time.sleep(30)
+            if file_delay > 0:
+                time.sleep(file_delay)
 
 if __name__ == "__main__":
     main()
