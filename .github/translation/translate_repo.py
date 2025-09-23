@@ -95,11 +95,14 @@ class Translator:
         self.cfg = cfg
         self.openai_key = os.getenv("OPENAI_API_KEY", "").strip()
         self.deepl_key  = os.getenv("DEEPL_API_KEY", "").strip()
+        print(f"Debug: OpenAI key present: {bool(self.openai_key)}")
+        print(f"Debug: DeepL key present: {bool(self.deepl_key)}")
         self.engine_order = cfg.get("engine_order", ["openai", "deepl"])
         # 環境変数 ENGINE_ORDER で上書き可（例: "openai" or "deepl,openai"）
         env_order = os.getenv("ENGINE_ORDER", "").strip()
         if env_order:
             self.engine_order = [x.strip() for x in env_order.split(",") if x.strip()]
+        print(f"Debug: Engine order: {self.engine_order}")
 
     def translate(self, text: str, to_lang: str) -> str:
         if not text.strip():
@@ -151,11 +154,14 @@ class Translator:
             ],
             "temperature": 0.2,
         }
-        # 軽リトライ（429/5xx）
-        for attempt in range(3):
+        # 強化リトライ（429/5xx）- より長い待機時間
+        for attempt in range(5):
             r = requests.post(url, headers=headers, json=payload, timeout=120)
             if r.status_code in (429, 500, 502, 503):
-                time.sleep(1.5 * (attempt + 1))
+                # 指数バックオフ: 30, 60, 120, 240, 480秒
+                wait_time = 30 * (2 ** attempt)
+                print(f"Rate limited, waiting {wait_time} seconds...")
+                time.sleep(wait_time)
                 continue
             r.raise_for_status()
             j = r.json()
@@ -287,6 +293,8 @@ def main() -> None:
                     continue
                 print(f"[text] {rel}")
                 translate_plain_file(p, tr, target_lang, glossary)
+                # ファイル間レート制限対策
+                time.sleep(30)
 
     # --- JSON (*.json)
     json_cfg = cfg.get("translate_json", {})
@@ -297,6 +305,8 @@ def main() -> None:
                 continue  # 翻訳ツール自身は除外
             print(f"[json] {rel}")
             translate_json_file(p, tr, target_lang, json_cfg, glossary)
+            # ファイル間レート制限対策
+            time.sleep(30)
 
 if __name__ == "__main__":
     main()
