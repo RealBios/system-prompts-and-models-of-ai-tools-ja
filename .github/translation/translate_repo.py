@@ -11,6 +11,16 @@ ROOT = Path(".").resolve()
 CFG_PATH = ROOT / ".github" / "translation" / "translate.config.yml"
 GLOSSARY_PATH = ROOT / ".github" / "translation" / "glossary_ja_en.csv"
 
+# 翻訳対象フォルダを限定
+TARGET_FOLDERS = {
+    "Claude Code",
+    "Cursor Prompts", 
+    "Kiro",
+    "Manus Agent Tools & Prompt",
+    "VSCode Agent",
+    "Windsurf"
+}
+
 # =========================
 # Helpers
 # =========================
@@ -96,6 +106,17 @@ def get_file_batch(p: Path, batch_total: int) -> int:
 def should_process_file(p: Path, batch_current: int, batch_total: int) -> bool:
     """このバッチで処理すべきファイルか判定"""
     return get_file_batch(p, batch_total) == batch_current
+
+def is_in_target_folder(p: Path) -> bool:
+    """ファイルが翻訳対象フォルダ内にあるかチェック"""
+    try:
+        rel_path = p.relative_to(ROOT)
+        # パスの最初の部分（フォルダ名）をチェック
+        first_part = str(rel_path).split(os.sep)[0]
+        return first_part in TARGET_FOLDERS
+    except ValueError:
+        # ROOTの外のファイルは対象外
+        return False
 
 # =========================
 # Translators
@@ -313,6 +334,9 @@ def main() -> None:
             if not p.is_file():
                 continue
             if p.suffix.lower() in exts:
+                # 対象フォルダ内のファイルのみ処理
+                if not is_in_target_folder(p):
+                    continue
                 rel = str(p.relative_to(ROOT)).replace("\\", "/")
                 if any(rx.search(rel) for rx in excludes):
                     continue
@@ -332,6 +356,9 @@ def main() -> None:
             rel = str(p.relative_to(ROOT)).replace("\\", "/")
             if rel.startswith(".github/translation/"):
                 continue  # 翻訳ツール自身は除外
+            # 対象フォルダ内のファイルのみ処理
+            if not is_in_target_folder(p):
+                continue
             # バッチ処理：このファイルはこのバッチで処理すべきか
             if not should_process_file(p, batch_current, batch_total):
                 continue
