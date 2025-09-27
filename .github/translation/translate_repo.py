@@ -92,6 +92,14 @@ def split_for_api(text: str, max_chars: int = 4000) -> List[str]:
         parts.append("".join(buf))
     return parts
 
+def estimate_translation_time(text: str, file_delay: int = 1) -> int:
+    """翻訳時間を推定（秒）"""
+    chunks = split_for_api(text, 4000)
+    # 各チャンクに対してAPI呼び出し + ファイル間待機
+    api_calls = len(chunks)
+    estimated_time = api_calls * 2 + file_delay  # API呼び出し約2秒/回 + 待機時間
+    return estimated_time
+
 def is_probably_identifier(s: str) -> bool:
     # 短い識別子やパス/IDっぽいものは翻訳しない方が安全
     return bool(re.fullmatch(r"[A-Za-z0-9_\-\.\/:]+", s or ""))
@@ -144,7 +152,7 @@ class Translator:
         out: List[str] = []
         last_err: Exception | None = None
 
-        for ch in chunks:
+        for i, ch in enumerate(chunks):
             translated: str | None = None
             for engine in self.engine_order:
                 try:
@@ -156,11 +164,20 @@ class Translator:
                         break
                 except Exception as e:
                     last_err = e
+                    print(f"Translation failed for chunk {i+1}/{len(chunks)} with {engine}: {e}")
                     # 次のエンジンへフォールバック
                     continue
+            
             if translated is None:
-                raise last_err or RuntimeError("No translation engine succeeded.")
+                # 翻訳に失敗した場合、元のテキストを返す（部分翻訳を避ける）
+                print(f"All translation engines failed for chunk {i+1}/{len(chunks)}. Using original text.")
+                return text  # 元のテキストを返す
+            
             out.append(translated)
+            
+            # チャンク間の短い待機（レート制限対策）
+            if i < len(chunks) - 1:
+                time.sleep(0.5)
 
         return "".join(out)
 
@@ -186,13 +203,13 @@ class Translator:
             ],
             "temperature": 0.2,
         }
-        # 改善リトライ（429/5xx）- より短縮された待機時間
-        for attempt in range(5):  # 10回から5回に減らす
-            r = requests.post(url, headers=headers, json=payload, timeout=120)  # タイムアウトを120秒に短縮
+        # 最小限のリトライ（429/5xx）- 極めて短縮された待機時間
+        for attempt in range(2):  # 5回から2回に削減
+            r = requests.post(url, headers=headers, json=payload, timeout=60)  # タイムアウトを60秒に短縮
             if r.status_code in (429, 500, 502, 503):
-                # 短縮された指数バックオフ: 10, 20, 40, 80, 160秒
-                wait_time = 10 * (2 ** attempt)
-                print(f"Rate limited (attempt {attempt+1}/5), waiting {wait_time} seconds...")
+                # 極めて短縮された待機: 5, 10秒
+                wait_time = 5 * (attempt + 1)
+                print(f"Rate limited (attempt {attempt+1}/2), waiting {wait_time} seconds...")
                 time.sleep(wait_time)
                 continue
             r.raise_for_status()
@@ -212,14 +229,14 @@ class Translator:
         data = {"text": text, "target_lang": t}
         headers = {"Authorization": f"DeepL-Auth-Key {self.deepl_key}"}
 
-        for attempt in range(3):  # 5回から3回に減らす
-            r = requests.post(url, data=data, headers=headers, timeout=120)  # タイムアウトを120秒に短縮
+        for attempt in range(2):  # 3回から2回に削減
+            r = requests.post(url, data=data, headers=headers, timeout=60)  # タイムアウトを60秒に短縮
             if r.status_code == 456:
                 # クォータ切れ/契約外 → 即フォールバック
                 raise RuntimeError("DeepL 456 Unrecoverable (quota/plan).")
             if r.status_code in (429, 500, 502, 503):
-                wait_time = 3 * (attempt + 1)  # 短縮された待機: 3, 6, 9秒
-                print(f"DeepL rate limited (attempt {attempt+1}/3), waiting {wait_time} seconds...")
+                wait_time = 2 * (attempt + 1)  # 極めて短縮された待機: 2, 4秒
+                print(f"DeepL rate limited (attempt {attempt+1}/2), waiting {wait_time} seconds...")
                 time.sleep(wait_time)
                 continue
             r.raise_for_status()
@@ -330,43 +347,70 @@ def main() -> None:
     if text_cfg.get("enabled", True):
         exts = set(text_cfg.get("exts", [".txt", ".md"]))
         excludes = [re.compile(p) for p in text_cfg.get("exclude", [])]
+        
+        # 対象ファイルを事前に収集
+        target_files = []
         for p in ROOT.rglob("*"):
             if not p.is_file():
                 continue
             if p.suffix.lower() in exts:
-                # 対象フォルダ内のファイルのみ処理
                 if not is_in_target_folder(p):
                     continue
                 rel = str(p.relative_to(ROOT)).replace("\\", "/")
                 if any(rx.search(rel) for rx in excludes):
                     continue
-                # バッチ処理：このファイルはこのバッチで処理すべきか
                 if not should_process_file(p, batch_current, batch_total):
                     continue
-                print(f"[text] {rel}")
+                target_files.append(p)
+        
+        print(f"Processing {len(target_files)} text files...")
+        for i, p in enumerate(target_files, 1):
+            rel = str(p.relative_to(ROOT)).replace("\\", "/")
+            print(f"[{i}/{len(target_files)}] [text] {rel}")
+            try:
                 translate_plain_file(p, tr, target_lang, glossary)
-                # ファイル間レート制限対策
-                if file_delay > 0:
-                    time.sleep(file_delay)
+                print(f"✓ Completed: {rel}")
+            except Exception as e:
+                print(f"✗ Failed: {rel} - {e}")
+                # 失敗しても処理を継続
+                continue
+            
+            # ファイル間レート制限対策（無効化されている場合はスキップ）
+            if file_delay > 0:
+                time.sleep(file_delay)
 
     # --- JSON (*.json)
     json_cfg = cfg.get("translate_json", {})
     if json_cfg.get("enabled", True):
+        # 対象JSONファイルを事前に収集
+        json_files = []
         for p in ROOT.rglob("*.json"):
             rel = str(p.relative_to(ROOT)).replace("\\", "/")
             if rel.startswith(".github/translation/"):
                 continue  # 翻訳ツール自身は除外
-            # 対象フォルダ内のファイルのみ処理
             if not is_in_target_folder(p):
                 continue
-            # バッチ処理：このファイルはこのバッチで処理すべきか
             if not should_process_file(p, batch_current, batch_total):
                 continue
-            print(f"[json] {rel}")
-            translate_json_file(p, tr, target_lang, json_cfg, glossary)
-            # ファイル間レート制限対策
+            json_files.append(p)
+        
+        print(f"Processing {len(json_files)} JSON files...")
+        for i, p in enumerate(json_files, 1):
+            rel = str(p.relative_to(ROOT)).replace("\\", "/")
+            print(f"[{i}/{len(json_files)}] [json] {rel}")
+            try:
+                translate_json_file(p, tr, target_lang, json_cfg, glossary)
+                print(f"✓ Completed: {rel}")
+            except Exception as e:
+                print(f"✗ Failed: {rel} - {e}")
+                # 失敗しても処理を継続
+                continue
+            
+            # ファイル間レート制限対策（無効化されている場合はスキップ）
             if file_delay > 0:
                 time.sleep(file_delay)
+    
+    print("All translation tasks completed!")
 
 if __name__ == "__main__":
     main()

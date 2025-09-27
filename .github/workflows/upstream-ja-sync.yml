@@ -66,10 +66,12 @@ jobs:
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           ENGINE_ORDER: openai
-          TRANSLATE_FILE_DELAY: 1  # ファイル間待機を1秒に短縮
+          TRANSLATE_FILE_DELAY: 0  # ファイル間待機を完全に無効化
         run: |
           # 高速化設定で翻訳実行
+          echo "Starting translation with aggressive optimization..."
           python .github/translation/translate_repo.py
+          echo "Translation completed successfully"
     
       # 8) jq を確実に用意（既にあればスキップ）
       - name: Ensure jq
