@@ -186,13 +186,13 @@ class Translator:
             ],
             "temperature": 0.2,
         }
-        # 改善リトライ（429/5xx）- より現実的な待機時間
-        for attempt in range(10):  # 30回から10回に減らす
-            r = requests.post(url, headers=headers, json=payload, timeout=300)  # タイムアウトを300秒に延長
+        # 改善リトライ（429/5xx）- より短縮された待機時間
+        for attempt in range(5):  # 10回から5回に減らす
+            r = requests.post(url, headers=headers, json=payload, timeout=120)  # タイムアウトを120秒に短縮
             if r.status_code in (429, 500, 502, 503):
-                # 指数バックオフ: 60, 120, 240, 480, 960秒 (1分, 2分, 4分, 8分, 16分...)
-                wait_time = 60 * (2 ** attempt)
-                print(f"Rate limited (attempt {attempt+1}/10), waiting {wait_time} seconds ({wait_time//60} minutes)...")
+                # 短縮された指数バックオフ: 10, 20, 40, 80, 160秒
+                wait_time = 10 * (2 ** attempt)
+                print(f"Rate limited (attempt {attempt+1}/5), waiting {wait_time} seconds...")
                 time.sleep(wait_time)
                 continue
             r.raise_for_status()
@@ -212,14 +212,14 @@ class Translator:
         data = {"text": text, "target_lang": t}
         headers = {"Authorization": f"DeepL-Auth-Key {self.deepl_key}"}
 
-        for attempt in range(5):  # 3回から5回に増やし、より粘り強く
-            r = requests.post(url, data=data, headers=headers, timeout=300)  # タイムアウトを300秒に延長
+        for attempt in range(3):  # 5回から3回に減らす
+            r = requests.post(url, data=data, headers=headers, timeout=120)  # タイムアウトを120秒に短縮
             if r.status_code == 456:
                 # クォータ切れ/契約外 → 即フォールバック
                 raise RuntimeError("DeepL 456 Unrecoverable (quota/plan).")
             if r.status_code in (429, 500, 502, 503):
-                wait_time = 5 * (attempt + 1)  # より長い待機: 5, 10, 15, 20, 25秒
-                print(f"DeepL rate limited (attempt {attempt+1}/5), waiting {wait_time} seconds...")
+                wait_time = 3 * (attempt + 1)  # 短縮された待機: 3, 6, 9秒
+                print(f"DeepL rate limited (attempt {attempt+1}/3), waiting {wait_time} seconds...")
                 time.sleep(wait_time)
                 continue
             r.raise_for_status()
@@ -313,8 +313,8 @@ def main() -> None:
     target_lang = cfg.get("target_lang", "ja")
     tr = Translator(cfg)
 
-    # 環境変数でファイル間待機時間を制御（デフォルト15秒）
-    file_delay = int(os.getenv("TRANSLATE_FILE_DELAY", "15"))
+    # 環境変数でファイル間待機時間を制御（デフォルト3秒に短縮）
+    file_delay = int(os.getenv("TRANSLATE_FILE_DELAY", "3"))
     print(f"Debug: File processing delay: {file_delay} seconds")
 
     # バッチ処理設定（GitHub Actionsでの並列実行用）
