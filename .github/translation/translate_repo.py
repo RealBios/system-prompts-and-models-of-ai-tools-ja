@@ -46,13 +46,19 @@ def load_glossary(p: Path) -> List[Tuple[str, str]]:
             dst = (row[1] or "").strip() if len(row) > 1 else ""
             if src and dst:
                 rows.append((src, dst))
-    # 長い語句から先に置換
+    # 長い語句から先に置換（より確実な置換のため）
     rows.sort(key=lambda x: len(x[0]), reverse=True)
+    print(f"Loaded {len(rows)} glossary terms")
     return rows
 
 def apply_glossary(s: str, glossary: List[Tuple[str, str]]) -> str:
     for src, dst in glossary:
+        # 完全一致と大文字小文字を区別しない置換の両方を行う
         s = s.replace(src, dst)
+        # 単語境界での置換（より確実）
+        import re
+        pattern = re.compile(r'\b' + re.escape(src) + r'\b', re.IGNORECASE)
+        s = pattern.sub(dst, s)
     return s
 
 def chunk_code_blocks(s: str) -> List[Tuple[str, str]]:
@@ -194,14 +200,16 @@ class Translator:
                 {
                     "role": "system",
                     "content": (
-                        f"Translate the user's content into {to_lang}. "
-                        "Preserve code blocks, JSON keys, placeholders, and formatting. "
-                        "Do not add extra commentary."
+                        f"Translate the following content completely into {to_lang}. "
+                        "IMPORTANT: Translate ALL text content to Japanese. Do not leave any English words untranslated. "
+                        "Preserve code blocks, JSON keys, placeholders, and formatting exactly as they are. "
+                        "Use consistent Japanese terminology throughout. "
+                        "Do not add extra commentary or explanations."
                     ),
                 },
                 {"role": "user", "content": text},
             ],
-            "temperature": 0.2,
+            "temperature": 0.1,  # より一貫した翻訳のため温度を下げる
         }
         # 最小限のリトライ（429/5xx）- 極めて短縮された待機時間
         for attempt in range(2):  # 5回から2回に削減
