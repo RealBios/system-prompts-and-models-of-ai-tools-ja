@@ -1,24 +1,25 @@
-# **System Prompts and モデル of AI ツール**  
+# **System Prompts and Models of AI Tools**  
 ---
 <p align="center">
   <sub>Special thanks to</sub>  
 </p>
 
 <p align="center">
-  <a href="https://latitude.so/developers?utm_source=github&utm_medium=readme&utm_campaign=プロンプト_repo_sponsorship">
+  <a href="https://latitude.so/developers?utm_source=github&utm_medium=readme&utm_campaign=prompt_repo_sponsorship">
     <img src="assets/Latitude_logo.png" alt="Latitude Logo" width="700"/>
   </a>
 </p>
 
 <div align="center" markdown="1">
 
-### [The ツール you need for building reliable Agents and Prompts](https://latitude.so/developers?utm_source=github&utm_medium=readme&utm_campaign=プロンプト_repo_sponsorship)  
-[開きます Source AI Engineering Platform](https://latitude.so/developers?utm_source=github&utm_medium=readme&utm_campaign=プロンプト_repo_sponsorship)<br>
+### [The tools you need for building reliable Agents and Prompts](https://latitude.so/developers?utm_source=github&utm_medium=readme&utm_campaign=prompt_repo_sponsorship)  
+[Open Source AI Engineering Platform](https://latitude.so/developers?utm_source=github&utm_medium=readme&utm_campaign=prompt_repo_sponsorship)<br>
 
 </div>
 
 
 ---
+
 <a href="https://discord.gg/NwzrWErdMU" target="_blank">
   <img src="https://img.shields.io/discord/1402660735833604126?label=LeaksLab%20Discord&logo=discord&style=for-the-badge" alt="LeaksLab Discord" />
 </a>
@@ -101,6 +102,7 @@ You can show your support via:
   - [Gemini CLI](./開きます%20Source%20プロンプトs/Gemini%20CLI/)
 - [**CodeBuddy**](./CodeBuddy%20Prompts/)
 - [**Poke**](./Poke/)
+- [**Comet Assistant**](./Comet%20Assistant/)
 
 ---
 
@@ -108,7 +110,7 @@ You can show your support via:
 
 > 開きます an Issue.
 
-> **Latest 更新します:** 16/09/2025
+> **Latest Update:** 25/09/2025
 
 ---
 
