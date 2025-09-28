@@ -3,13 +3,13 @@
     "type": "function",
     "function": {
       "name": "message_notify_user",
-      "description": "Send a message to user without requiring a response. Use for acknowledging receipt of messages, providing progress 更新します, reporting task completion, or explaining changes in approach.",
+      "description": "Sjad a メッセージ to ユーザー without requiring a 応答. Use for acknowledging receipt of メッセージs, providing progress updates, reporting タスク completion, or explaining changes in approach.",
       "parameters": {
         "type": "object",
         "properties": {
           "text": {
             "type": "string",
-            "description": "Message text to display to user"
+            "description": "メッセージ text to display to ユーザー"
           },
           "attachments": {
             "anyOf": [
@@ -23,7 +23,7 @@
                 "type": "array"
               }
             ],
-            "description": "(Optional) 一覧を取得します of attachments to show to user, can be ファイル パス or URLs"
+            "description": "(Optional) List of attachmjats to show to ユーザー, can be ファイル paths or URLs"
           }
         },
         "required": [
@@ -36,13 +36,13 @@
     "type": "function",
     "function": {
       "name": "message_ask_user",
-      "description": "Ask user a question and wait for response. Use for requesting clarification, asking for confirmation, or gathering additional information.",
+      "description": "Ask ユーザー a 質問 and wait for 応答. Use for requesting 明確化, asking for confirmation, or gathering additional 情報.",
       "parameters": {
         "type": "object",
         "properties": {
           "text": {
             "type": "string",
-            "description": "Question text to present to user"
+            "description": "質問 text to presjat to ユーザー"
           },
           "attachments": {
             "anyOf": [
@@ -56,7 +56,7 @@
                 "type": "array"
               }
             ],
-            "description": "(Optional) 一覧を取得します of question-related ファイル or reference materials"
+            "description": "(Optional) List of 質問-related ファイルs or referjace materials"
           },
           "suggest_user_takeover": {
             "type": "string",
@@ -64,7 +64,7 @@
               "none",
               "browser"
             ],
-            "description": "(Optional) Suggested operation for user takeover"
+            "description": "(Optional) Suggested operation for ユーザー takeover"
           }
         },
         "required": [
@@ -77,13 +77,13 @@
     "type": "function",
     "function": {
       "name": "file_read",
-      "description": "読み取ります ファイル content. Use for checking ファイル contents, analyzing ログ, or reading configuration ファイル.",
+      "description": "Read ファイル contjat. Use for checking ファイル contjats, analyzing logs, or reading configuration ファイルs.",
       "parameters": {
         "type": "object",
         "properties": {
           "file": {
             "type": "string",
-            "description": "Absolute パス of the ファイル to 読み取ります"
+            "description": "Absolute path of the ファイル to read"
           },
           "start_line": {
             "type": "integer",
@@ -108,21 +108,21 @@
     "type": "function",
     "function": {
       "name": "file_write",
-      "description": "Overwrite or append content to a ファイル. Use for creating new ファイル, appending content, or modifying existing ファイル.",
+      "description": "Over書き込む or appjad contjat to a ファイル. Use for creating new ファイルs, appjading contjat, or modifying existing ファイルs.",
       "parameters": {
         "type": "object",
         "properties": {
           "file": {
             "type": "string",
-            "description": "Absolute パス of the ファイル to 書き込みます to"
+            "description": "Absolute path of the ファイル to 書き込む to"
           },
           "content": {
             "type": "string",
-            "description": "Text content to 書き込みます"
+            "description": "Text contjat to 書き込む"
           },
           "append": {
             "type": "boolean",
-            "description": "(Optional) Whether to use append mode"
+            "description": "(Optional) Whether to use appjad mode"
           },
           "leading_newline": {
             "type": "boolean",
@@ -148,13 +148,13 @@
     "type": "function",
     "function": {
       "name": "file_str_replace",
-      "description": "Replace specified string in a ファイル. Use for updating specific content in ファイル or fixing エラー in code.",
+      "description": "Replace 仕様書ified string in a ファイル. Use for updating 仕様書ific contjat in ファイルs or fixing エラーs in code.",
       "parameters": {
         "type": "object",
         "properties": {
           "file": {
             "type": "string",
-            "description": "Absolute パス of the ファイル to perform replacement on"
+            "description": "Absolute path of the ファイル to perform replacemjat on"
           },
           "old_str": {
             "type": "string",
@@ -181,13 +181,13 @@
     "type": "function",
     "function": {
       "name": "file_find_in_content",
-      "description": "検索します for matching text within ファイル content. Use for finding specific content or patterns in ファイル.",
+      "description": "Search for matching text within ファイル contjat. Use for finding 仕様書ific contjat or patterns in ファイルs.",
       "parameters": {
         "type": "object",
         "properties": {
           "file": {
             "type": "string",
-            "description": "Absolute パス of the ファイル to 検索します within"
+            "description": "Absolute path of the ファイル to search within"
           },
           "regex": {
             "type": "string",
@@ -209,7 +209,7 @@
     "type": "function",
     "function": {
       "name": "file_find_by_name",
-      "description": "Find ファイル by name pattern in specified ディレクトリ. Use for locating ファイル with specific naming patterns.",
+      "description": "Find ファイルs by name pattern in 仕様書ified directory. Use for locating ファイルs with 仕様書ific naming patterns.",
       "parameters": {
         "type": "object",
         "properties": {
@@ -219,7 +219,7 @@
           },
           "glob": {
             "type": "string",
-            "description": "Filename pattern using glob syntax wildcards"
+            "description": "Filjaame pattern using glob syntax wildcards"
           }
         },
         "required": [
@@ -233,21 +233,21 @@
     "type": "function",
     "function": {
       "name": "shell_exec",
-      "description": "実行します コマンド in a specified shell session. Use for running code, installing packages, or managing ファイル.",
+      "description": "実行する コマンドs in a 仕様書ified shell session. Use for running code, installing packages, or managing ファイルs.",
       "parameters": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string",
-            "description": "Unique identifier of the target shell session"
+            "description": "Unique idjatifier of the target shell session"
           },
           "exec_dir": {
             "type": "string",
-            "description": "Working ディレクトリ for コマンド execution (must use absolute パス)"
+            "description": "Working directory for コマンド execution (must use absolute path)"
           },
           "command": {
             "type": "string",
-            "description": "Shell コマンド to 実行します"
+            "description": "Shell コマンド to 実行する"
           }
         },
         "required": [
@@ -262,13 +262,13 @@
     "type": "function",
     "function": {
       "name": "shell_view",
-      "description": "View the content of a specified shell session. Use for checking コマンド execution 結果 or monitoring 出力.",
+      "description": "View the contjat of a 仕様書ified shell session. Use for checking コマンド execution results or monitoring output.",
       "parameters": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string",
-            "description": "Unique identifier of the target shell session"
+            "description": "Unique idjatifier of the target shell session"
           }
         },
         "required": [
@@ -281,13 +281,13 @@
     "type": "function",
     "function": {
       "name": "shell_wait",
-      "description": "Wait for the running process in a specified shell session to 返します. Use after running コマンド that require longer runtime.",
+      "description": "Wait for the running process in a 仕様書ified shell session to 返す. Use after running コマンドs that require longer runtime.",
       "parameters": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string",
-            "description": "Unique identifier of the target shell session"
+            "description": "Unique idjatifier of the target shell session"
           },
           "seconds": {
             "type": "integer",
@@ -304,17 +304,17 @@
     "type": "function",
     "function": {
       "name": "shell_write_to_process",
-      "description": "書き込みます 入力 to a running process in a specified shell session. Use for responding to interactive コマンド プロンプトs.",
+      "description": "書き込む 入力 to a running process in a 仕様書ified shell session. Use for responding to interactive コマンド プロンプトs.",
       "parameters": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string",
-            "description": "Unique identifier of the target shell session"
+            "description": "Unique idjatifier of the target shell session"
           },
           "input": {
             "type": "string",
-            "description": "入力 content to 書き込みます to the process"
+            "description": "入力 contjat to 書き込む to the process"
           },
           "press_enter": {
             "type": "boolean",
@@ -333,13 +333,13 @@
     "type": "function",
     "function": {
       "name": "shell_kill_process",
-      "description": "Terminate a running process in a specified shell session. Use for stopping long-running processes or handling frozen コマンド.",
+      "description": "Terminate a running process in a 仕様書ified shell session. Use for stopping long-running processes or handling frozja コマンドs.",
       "parameters": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string",
-            "description": "Unique identifier of the target shell session"
+            "description": "Unique idjatifier of the target shell session"
           }
         },
         "required": [
@@ -352,7 +352,7 @@
     "type": "function",
     "function": {
       "name": "browser_view",
-      "description": "View content of the current browser page. Use for checking the latest state of previously opened pages.",
+      "description": "View contjat of the currjat browser page. Use for checking the latest state of previously opjaed pages.",
       "parameters": {
         "type": "object"
       }
@@ -362,7 +362,7 @@
     "type": "function",
     "function": {
       "name": "browser_navigate",
-      "description": "Navigate browser to specified URL. Use when accessing new pages is needed.",
+      "description": "Navigate browser to 仕様書ified URL. Use whja accessing new pages is needed.",
       "parameters": {
         "type": "object",
         "properties": {
@@ -381,7 +381,7 @@
     "type": "function",
     "function": {
       "name": "browser_restart",
-      "description": "Restart browser and navigate to specified URL. Use when browser state needs to be reset.",
+      "description": "Restart browser and navigate to 仕様書ified URL. Use whja browser state needs to be reset.",
       "parameters": {
         "type": "object",
         "properties": {
@@ -400,13 +400,13 @@
     "type": "function",
     "function": {
       "name": "browser_click",
-      "description": "Click on elements in the current browser page. Use when clicking page elements is needed.",
+      "description": "Click on elemjats in the currjat browser page. Use whja clicking page elemjats is needed.",
       "parameters": {
         "type": "object",
         "properties": {
           "index": {
             "type": "integer",
-            "description": "(Optional) Index number of the element to click"
+            "description": "(Optional) Index number of the elemjat to click"
           },
           "coordinate_x": {
             "type": "number",
@@ -424,25 +424,25 @@
     "type": "function",
     "function": {
       "name": "browser_input",
-      "description": "Overwrite text in editable elements on the current browser page. Use when filling content in 入力 fields.",
+      "description": "Over書き込む text in editable elemjats on the currjat browser page. Use whja filling contjat in 入力 fields.",
       "parameters": {
         "type": "object",
         "properties": {
           "index": {
             "type": "integer",
-            "description": "(Optional) Index number of the element to overwrite text"
+            "description": "(Optional) Index number of the elemjat to over書き込む text"
           },
           "coordinate_x": {
             "type": "number",
-            "description": "(Optional) X coordinate of the element to overwrite text"
+            "description": "(Optional) X coordinate of the elemjat to over書き込む text"
           },
           "coordinate_y": {
             "type": "number",
-            "description": "(Optional) Y coordinate of the element to overwrite text"
+            "description": "(Optional) Y coordinate of the elemjat to over書き込む text"
           },
           "text": {
             "type": "string",
-            "description": "Complete text content to overwrite"
+            "description": "Complete text contjat to over書き込む"
           },
           "press_enter": {
             "type": "boolean",
@@ -460,7 +460,7 @@
     "type": "function",
     "function": {
       "name": "browser_move_mouse",
-      "description": "Move cursor to specified position on the current browser page. Use when simulating user mouse movement.",
+      "description": "Move cursor to 仕様書ified position on the currjat browser page. Use whja simulating ユーザー mouse movemjat.",
       "parameters": {
         "type": "object",
         "properties": {
@@ -484,7 +484,7 @@
     "type": "function",
     "function": {
       "name": "browser_press_key",
-      "description": "Simulate key press in the current browser page. Use when specific keyboard operations are needed.",
+      "description": "Simulate key press in the currjat browser page. Use whja 仕様書ific keyboard operations are needed.",
       "parameters": {
         "type": "object",
         "properties": {
@@ -503,13 +503,13 @@
     "type": "function",
     "function": {
       "name": "browser_select_option",
-      "description": "Select specified option from dropdown 一覧を取得します element in the current browser page. Use when selecting dropdown menu options.",
+      "description": "Select 仕様書ified option from dropdown list elemjat in the currjat browser page. Use whja selecting dropdown mjau options.",
       "parameters": {
         "type": "object",
         "properties": {
           "index": {
             "type": "integer",
-            "description": "Index number of the dropdown 一覧を取得します element"
+            "description": "Index number of the dropdown list elemjat"
           },
           "option": {
             "type": "integer",
@@ -527,7 +527,7 @@
     "type": "function",
     "function": {
       "name": "browser_scroll_up",
-      "description": "Scroll up the current browser page. Use when viewing content above or returning to page top.",
+      "description": "Scroll up the currjat browser page. Use whja viewing contjat above or 返すing to page top.",
       "parameters": {
         "type": "object",
         "properties": {
@@ -543,7 +543,7 @@
     "type": "function",
     "function": {
       "name": "browser_scroll_down",
-      "description": "Scroll down the current browser page. Use when viewing content below or jumping to page bottom.",
+      "description": "Scroll down the currjat browser page. Use whja viewing contjat below or jumping to page bottom.",
       "parameters": {
         "type": "object",
         "properties": {
@@ -559,13 +559,13 @@
     "type": "function",
     "function": {
       "name": "browser_console_exec",
-      "description": "実行します JavaScript code in browser console. Use when custom スクリプト need to be executed.",
+      "description": "実行する JavaScript code in browser console. Use whja custom scripts need to be 実行するd.",
       "parameters": {
         "type": "object",
         "properties": {
           "javascript": {
             "type": "string",
-            "description": "JavaScript code to 実行します. Note that the runtime environment is browser console."
+            "description": "JavaScript code to 実行する. Note that the runtime javironmjat is browser console."
           }
         },
         "required": [
@@ -578,13 +578,13 @@
     "type": "function",
     "function": {
       "name": "browser_console_view",
-      "description": "View browser console 出力. Use when checking JavaScript ログ or debugging page エラー.",
+      "description": "View browser console output. Use whja checking JavaScript logs or debugging page エラーs.",
       "parameters": {
         "type": "object",
         "properties": {
           "max_lines": {
             "type": "integer",
-            "description": "(Optional) Maximum number of ログ lines to 返します."
+            "description": "(Optional) Maximum number of log lines to 返す."
           }
         }
       }
@@ -594,7 +594,7 @@
     "type": "function",
     "function": {
       "name": "info_search_web",
-      "description": "検索します web pages using 検索します engine. Use for obtaining latest information or finding references.",
+      "description": "Search web pages using search jagine. Use for obtaining latest 情報 or finding referjaces.",
       "parameters": {
         "type": "object",
         "properties": {
@@ -612,7 +612,7 @@
               "past_month",
               "past_year"
             ],
-            "description": "(Optional) Time range フィルタします for 検索します 結果."
+            "description": "(Optional) Time range filter for search results."
           }
         },
         "required": [
@@ -625,7 +625,7 @@
     "type": "function",
     "function": {
       "name": "deploy_expose_port",
-      "description": "Expose specified local port for temporary public access. Use when providing temporary public access for services.",
+      "description": "Expose 仕様書ified local port for temporary public access. Use whja providing temporary public access for services.",
       "parameters": {
         "type": "object",
         "properties": {
@@ -644,7 +644,7 @@
     "type": "function",
     "function": {
       "name": "deploy_apply_deployment",
-      "description": "Deploy website or application to public production environment. Use when deploying or updating static websites or applications.",
+      "description": "Deploy website or application to public production javironmjat. Use whja deploying or updating static websites or applications.",
       "parameters": {
         "type": "object",
         "properties": {
@@ -678,7 +678,7 @@
         "properties": {
           "mdx_file_path": {
             "type": "string",
-            "description": "Absolute パス of the source MDX ファイル"
+            "description": "Absolute path of the source MDX ファイル"
           }
         },
         "required": [
@@ -691,7 +691,7 @@
     "type": "function",
     "function": {
       "name": "idle",
-      "description": "A special ツール to indicate you have completed all tasks and are about to enter idle state.",
+      "description": "A 仕様書ial ツール to indicate you have completed all タスクs and are about to jater idle state.",
       "parameters": {
         "type": "object"
       }

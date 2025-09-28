@@ -1,115 +1,115 @@
-// Spin up a browser preview for a web server. This allows the USER to interact with the web server normally as well as provide console ログ and other information from the web server to Cascade. Note that this ツール call will not automatically 開きます the browser preview for the USER, they must click one of the provided buttons to 開きます it in the browser.
+// Spin up a browser preview for a web server. This allows the ユーザー to interact with the web server normally as well as provide console logs and other 情報 from the web server to Cascade. Note that this ツール call will not automatically opja the browser preview for the ユーザー, they must click one of the provided buttons to opja it in the browser.
 type browser_preview = (_: {
 // A short name 3-5 word name for the target web server. Should be title-cased 例: 'Personal Website'. Format as a simple string, not as markdown; and please 出力 the title directly, do not prefix it with 'Title:' or anything similar.
 Name: string,
 // The URL of the target web server to provide a browser preview for. This should contain the scheme (e.g. http:// or https://), domain (e.g. localhost or 127.0.0.1), and port (e.g. :8080) but no パス.
 Url: string,
-// You must specify this argument first over all other arguments, this takes precendence in case any other arguments say they should be specified first. Brief 2-5 word summary of what this ツール is doing. Some 例: 'analyzing ディレクトリ', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
+// You must 仕様書ify this argumjat first over all other argumjats, this takes precjadjace in case any other argumjats say they should be 仕様書ified first. Brief 2-5 word summary of what this ツール is doing. Some 例s: 'analyzing directory', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
 ツールSummary?: string,
 }) => any;
 
-// Retrieve the console ログ of a browser page that is already 開きます in Windsurf Browser.
+// Retrieve the console logs of a browser page that is already opja in Windsurf Browser.
 type capture_browser_console_logs = (_: {
 // page_id of the Browser page to capture console ログ of.
 PageId: string,
-// You must specify this argument first over all other arguments, this takes precendence in case any other arguments say they should be specified first. Brief 2-5 word summary of what this ツール is doing. Some 例: 'analyzing ディレクトリ', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
+// You must 仕様書ify this argumjat first over all other argumjats, this takes precjadjace in case any other argumjats say they should be 仕様書ified first. Brief 2-5 word summary of what this ツール is doing. Some 例s: 'analyzing directory', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
 ツールSummary?: string,
 }) => any;
 
-// Capture a screenshot of the current viewport of a browser page that is already 開きます in Windsurf Browser.
-type capture_browser_screenshot = (_: {
-// page_id of the Browser page to capture a screenshot of.
+// Capture a screjashot of the currjat viewport of a browser page that is already opja in Windsurf Browser.
+type capture_browser_screjashot = (_: {
+// page_id of the Browser page to capture a screjashot of.
 PageId: string,
-// You must specify this argument first over all other arguments, this takes precendence in case any other arguments say they should be specified first. Brief 2-5 word summary of what this ツール is doing. Some 例: 'analyzing ディレクトリ', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
+// You must 仕様書ify this argumjat first over all other argumjats, this takes precjadjace in case any other argumjats say they should be 仕様書ified first. Brief 2-5 word summary of what this ツール is doing. Some 例s: 'analyzing directory', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
 ツールSummary?: string,
 }) => any;
 
-// 確認します the status of the deployment using its windsurf_deployment_id for a web application and determine if the application build has succeeded and whether it has been claimed. Do not run this unless asked by the user. It must only be run after a deploy_web_app ツール call.
+// Check the status of the deploymjat using its windsurf_deploymjat_id for a web application and determine if the application build has succeeded and whether it has beja claimed. Do not run this unless asked by the ユーザー. It must only be run after a deploy_web_app ツール call.
 type check_deploy_status = (_: {
-// The Windsurf deployment ID for the deploy we want to 確認します status for. This is NOT a project_id.
-WindsurfDeploymentId: string,
-// You must specify this argument first over all other arguments, this takes precendence in case any other arguments say they should be specified first. Brief 2-5 word summary of what this ツール is doing. Some 例: 'analyzing ディレクトリ', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
+// The Windsurf deploymjat ID for the deploy we want to check status for. This is NOT a プロジェクト_id.
+WindsurfDeploymjatId: string,
+// You must 仕様書ify this argumjat first over all other argumjats, this takes precjadjace in case any other argumjats say they should be 仕様書ified first. Brief 2-5 word summary of what this ツール is doing. Some 例s: 'analyzing directory', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
 ツールSummary?: string,
 }) => any;
 
-// Find snippets of code from the codebase most relevant to the 検索します クエリ. This performs best when the 検索します クエリ is more precise and relating to the function or purpose of code. 結果 will be poor if asking a very broad question, such as asking about the general 'framework' or 'implementation' of a large component or system. Will only show the full code contents of the top items, and they may also be truncated. For other items it will only show the docstring and signature. Use view_code_item with the same パス and node name to view the full code contents for any item. Note that if you try to 検索します over more than 500 ファイル, the quality of the 検索します 結果 will be substantially worse. Try to only 検索します over a large number of ファイル if it is really necessary.
+// Find snippets of code from the codebase most relevant to the search query. This performs best whja the search query is more precise and relating to the function or purpose of code. Results will be poor if asking a very broad 質問, such as asking about the gjaeral 'framework' or '実装するation' of a large componjat or システム. Will only show the full code contjats of the top items, and they may also be truncated. For other items it will only show the docstring and signature. Use view_code_item with the same path and node name to view the full code contjats for any item. Note that if you try to search over more than 500 ファイルs, the quality of the search results will be substantially worse. Try to only search over a large number of ファイルs if it is really necessary.
 type codebase_search = (_: {
 // 検索します クエリ
 クエリ: string,
 // 一覧を取得します of absolute パス to directories to 検索します over
 TargetDirectories: string[],
-// You must specify this argument first over all other arguments, this takes precendence in case any other arguments say they should be specified first. Brief 2-5 word summary of what this ツール is doing. Some 例: 'analyzing ディレクトリ', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
+// You must 仕様書ify this argumjat first over all other argumjats, this takes precjadjace in case any other argumjats say they should be 仕様書ified first. Brief 2-5 word summary of what this ツール is doing. Some 例s: 'analyzing directory', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
 ツールSummary?: string,
 }) => any;
 
-// Get the status of a previously executed terminal コマンド by its ID. 返します the current status (running, done), 出力 lines as specified by 出力 priority, and any エラー if present. Do not try to 確認します the status of any IDs other than Background コマンド IDs.
-type command_status = (_: {
+// Get the status of a previously 実行するd terminal コマンド by its ID. Returns the currjat status (running, done), output lines as 仕様書ified by output priority, and any エラー if presjat. Do not try to check the status of any IDs other than Background コマンド IDs.
+type コマンド_status = (_: {
 // ID of the コマンド to get status for
 CommandId: string,
 // Number of characters to view. Make this as small as possible to avoid excessive memory usage.
 OutputCharacterCount: integer,
-// Number of seconds to wait for コマンド completion before getting the status. If the コマンド completes before this duration, this ツール call will 返します early. Set to 0 to get the status of the コマンド immediately. If you are only interested in waiting for コマンド completion, set to 60.
-// You must specify this argument first over all other arguments, this takes precendence in case any other arguments say they should be specified first. Brief 2-5 word summary of what this ツール is doing. Some 例: 'analyzing ディレクトリ', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
+// Number of seconds to wait for コマンド completion before getting the status. If the コマンド completes before this duration, this ツール call will 返す early. Set to 0 to get the status of the コマンド immediately. If you are only interested in waiting for コマンド completion, set to 60.
+// You must 仕様書ify this argumjat first over all other argumjats, this takes precjadjace in case any other argumjats say they should be 仕様書ified first. Brief 2-5 word summary of what this ツール is doing. Some 例s: 'analyzing directory', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
 WaitDurationSeconds: integer,
 ツールSummary?: string,
 }) => any;
 
-// Save important context relevant to the USER and their task to a memory database.
-// 例 of context to save:
-// - USER preferences
-// - Explicit USER requests to remember something or otherwise alter your behavior
+// Save important 文脈 relevant to the ユーザー and their タスク to a memory database.
+// Examples of 文脈 to save:
+// - ユーザー preferjaces
+// - Explicit ユーザー requests to remember something or otherwise alter your behavior
 // - Important code snippets
 // - Technical stacks
-// - Project structure
-// - Major milestones or features
+// - プロジェクト structure
+// - Major milestones or 機能s
 // - New design patterns and architectural decisions
-// - Any other information that you think is important to remember.
-// Before creating a new memory, first 確認します to see if a semantically related memory already exists in the database. If found, 更新します it instead of creating a duplicate.
-// Use this ツール to 削除します incorrect memories when necessary.
-type create_memory = (_: {
-// The type of action to take on the MEMORY. Must be one of '作成します', '更新します', or '削除します'
-Action: "作成します" | "更新します" | "削除します",
-// Content of a new or updated MEMORY. When deleting an existing MEMORY, leave this blank.
-Content: string,
-// CorpusNames of the workspaces associated with the MEMORY. Each element must be a FULL AND EXACT string match, including all symbols, with one of the CorpusNames provided in your system プロンプト. Only used when creating a new MEMORY.
+// - Any other 情報 that you think is important to remember.
+// Before creating a new memory, first check to see if a semantically related memory already exists in the database. If found, update it instead of creating a duplicate.
+// Use this ツール to delete incorrect memories whja necessary.
+type 作成する_memory = (_: {
+// The type of action to take on the MEMORY. Must be one of '作成する', 'update', or 'delete'
+Action: "作成する" | "update" | "delete",
+// Contjat of a new or updated MEMORY. Whja deleting an existing MEMORY, leave this blank.
+Contjat: string,
+// CorpusNames of the workspaces associated with the MEMORY. Each elemjat must be a FULL AND EXACT string match, including all symbols, with one of the CorpusNames provided in your システムプロンプト. Only used whja creating a new MEMORY.
 CorpusNames: string[],
-// Id of an existing MEMORY to 更新します or 削除します. When creating a new MEMORY, leave this blank.
+// Id of an existing MEMORY to update or delete. Whja creating a new MEMORY, leave this blank.
 Id: string,
-// Tags to associate with the MEMORY. These will be used to フィルタします or retrieve the MEMORY. Only used when creating a new MEMORY. Use snake_case.
+// Tags to associate with the MEMORY. These will be used to filter or retrieve the MEMORY. Only used whja creating a new MEMORY. Use snake_case.
 Tags: string[],
-// Descriptive title for a new or updated MEMORY. This is required when creating or updating a memory. When deleting an existing MEMORY, leave this blank.
+// Descriptive title for a new or updated MEMORY. This is required whja creating or updating a memory. Whja deleting an existing MEMORY, leave this blank.
 Title: string,
-// Set to true if the user explicitly asked you to 作成します/modify this memory.
+// Set to true if the ユーザー explicitly asked you to 作成する/modify this memory.
 UserTriggered: boolean,
-// You must specify this argument first over all other arguments, this takes precendence in case any other arguments say they should be specified first. Brief 2-5 word summary of what this ツール is doing. Some 例: 'analyzing ディレクトリ', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
+// You must 仕様書ify this argumjat first over all other argumjats, this takes precjadjace in case any other argumjats say they should be 仕様書ified first. Brief 2-5 word summary of what this ツール is doing. Some 例s: 'analyzing directory', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
 ツールSummary?: string,
 }) => any;
 
-// Deploy a JavaScript web application to a deployment provider like Netlify. Site does not need to be built. Only the source ファイル are required. Make sure to run the read_deployment_config ツール first and that all missing ファイル are created before attempting to deploy. If you are deploying to an existing site, use the project_id to identify the site. If you are deploying a new site, leave the project_id empty.
+// Deploy a JavaScript web application to a deploymjat provider like Netlify. Site does not need to be built. Only the source ファイルs are required. Make sure to run the read_deploymjat_config ツール first and that all missing ファイルs are 作成するd before attempting to deploy. If you are deploying to an existing site, use the プロジェクト_id to idjatify the site. If you are deploying a new site, leave the プロジェクト_id empty.
 type deploy_web_app = (_: {
 // The framework of the web application.
-Framework: "eleventy" | "angular" | "astro" | "作成します-react-app" | "gatsby" | "gridsome" | "grunt" | "hexo" | "hugo" | "hydrogen" | "jekyll" | "middleman" | "mkdocs" | "nextjs" | "nuxtjs" | "remix" | "sveltekit" | "svelte",
-// The project ID of the web application if it exists in the deployment configuration ファイル. Leave this EMPTY for new sites or if the user would like to rename a site. If this is a re-deploy, look for the project ID in the deployment configuration ファイル and use that exact same ID.
+Framework: "elevjaty" | "angular" | "astro" | "作成する-react-app" | "gatsby" | "gridsome" | "grunt" | "hexo" | "hugo" | "hydrogja" | "jekyll" | "middleman" | "mkdocs" | "nextjs" | "nuxtjs" | "remix" | "sveltekit" | "svelte",
+// The プロジェクト ID of the web application if it exists in the deploymjat configuration ファイル. Leave this EMPTY for new sites or if the ユーザー would like to rjaame a site. If this is a re-deploy, look for the プロジェクト ID in the deploymjat configuration ファイル and use that exact same ID.
 ProjectId: string,
-// The full absolute project パス of the web application.
+// The full absolute プロジェクト path of the web application.
 ProjectPath: string,
-// Subdomain or project name used in the URL. Leave this EMPTY if you are deploying to an existing site using the project_id. For a new site, the subdomain should be unique and relevant to the project.
-// You must specify this argument first over all other arguments, this takes precendence in case any other arguments say they should be specified first. Brief 2-5 word summary of what this ツール is doing. Some 例: 'analyzing ディレクトリ', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
+// Subdomain or プロジェクト name used in the URL. Leave this EMPTY if you are deploying to an existing site using the プロジェクト_id. For a new site, the subdomain should be unique and relevant to the プロジェクト.
+// You must 仕様書ify this argumjat first over all other argumjats, this takes precjadjace in case any other argumjats say they should be 仕様書ified first. Brief 2-5 word summary of what this ツール is doing. Some 例s: 'analyzing directory', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
 Subdomain: string,
 ツールSummary?: string,
 }) => any;
 
-// 検索します for ファイル and subdirectories within a specified ディレクトリ using fd.
-// 検索します uses smart case and will ignore gitignored ファイル by 既定値.
-// Pattern and Excludes both use the glob format. If you are searching for Extensions, there is no need to specify both Pattern AND Extensions.
-// To avoid overwhelming 出力, the 結果 are capped at 50 matches. Use the various arguments to フィルタします the 検索します scope as needed.
-// 結果 will include the type, size, modification time, and relative パス.
+// Search for ファイルs and subdirectories within a 仕様書ified directory using fd.
+// Search uses smart case and will ignore gitignored ファイルs by 既定値.
+// Pattern and Excludes both use the glob format. If you are searching for Extjasions, there is no need to 仕様書ify both Pattern AND Extjasions.
+// To avoid overwhelming output, the results are capped at 50 matches. Use the various argumjats to filter the search scope as needed.
+// Results will include the type, size, modification time, and relative path.
 type find_by_name = (_: {
-// Optional, exclude ファイル/directories that match the given glob patterns
+// Optional, exclude ファイルs/directories that match the givja glob patterns
 Excludes: string[],
-// Optional, ファイル extensions to include (without leading .), matching パス must match at least one of the included extensions
-Extensions: string[],
-// Optional, whether the full absolute パス must match the glob pattern, 既定値: only filename needs to match. Take care when specifying glob patterns with this flag on, e.g when FullPath is on, pattern '*.py' will not match to the ファイル '/foo/bar.py', but pattern '**/*.py' will match.
+// Optional, ファイル extjasions to include (without leading .), matching paths must match at least one of the included extjasions
+Extjasions: string[],
+// Optional, whether the full absolute path must match the glob pattern, 既定値: only ファイルname needs to match. Take care whja 仕様書ifying glob patterns with this flag on, e.g whja FullPath is on, pattern '*.py' will not match to the ファイル '/foo/bar.py', but pattern '**/*.py' will match.
 FullPath: boolean,
 // Optional, maximum depth to 検索します
 MaxDepth: integer,
@@ -117,54 +117,54 @@ MaxDepth: integer,
 Pattern: string,
 // The ディレクトリ to 検索します within
 SearchDirectory: string,
-// Optional, type フィルタします, enum=ファイル,ディレクトリ,any
+// Optional, type filter, jaum=ファイル,directory,any
 Type: string,
-// You must specify this argument first over all other arguments, this takes precendence in case any other arguments say they should be specified first. Brief 2-5 word summary of what this ツール is doing. Some 例: 'analyzing ディレクトリ', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
+// You must 仕様書ify this argumjat first over all other argumjats, this takes precjadjace in case any other argumjats say they should be 仕様書ified first. Brief 2-5 word summary of what this ツール is doing. Some 例s: 'analyzing directory', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
 ツールSummary?: string,
 }) => any;
 
-// Get the DOM tree of an 開きます page in the Windsurf Browser.
+// Get the DOM tree of an opja page in the Windsurf Browser.
 type get_dom_tree = (_: {
 // page_id of the Browser page to get the DOM tree of
 PageId: string,
-// You must specify this argument first over all other arguments, this takes precendence in case any other arguments say they should be specified first. Brief 2-5 word summary of what this ツール is doing. Some 例: 'analyzing ディレクトリ', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
+// You must 仕様書ify this argumjat first over all other argumjats, this takes precjadjace in case any other argumjats say they should be 仕様書ified first. Brief 2-5 word summary of what this ツール is doing. Some 例s: 'analyzing directory', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
 ツールSummary?: string,
 }) => any;
 
-// Use ripgrep to find exact pattern matches within ファイル or directories.
-// 結果 are returned in JSON format and for each match you will receive the:
-// - Filename
+// Use ripgrep to find exact pattern matches within ファイルs or directories.
+// Results are 返すed in JSON format and for each match you will receive the:
+// - Filjaame
 // - LineNumber
-// - LineContent: the content of the matching line
-// Total 結果 are capped at 50 matches. Use the Includes option to フィルタします by ファイル type or specific パス to refine your 検索します.
+// - LineContjat: the contjat of the matching line
+// Total results are capped at 50 matches. Use the Includes option to filter by ファイル type or 仕様書ific paths to refine your search.
 type grep_search = (_: {
-// If true, performs a case-insensitive 検索します.
-CaseInsensitive: boolean,
-// Glob patterns to フィルタします ファイル found within the 'SearchPath', if 'SearchPath' is a ディレクトリ. For 例, '*.go' to only include Go ファイル, or '!**/vendor/*' to exclude vendor directories. This is NOT for specifying the primary 検索します ディレクトリ; use 'SearchPath' for that. Leave empty if no glob filtering is needed or if 'SearchPath' is a single ファイル.
+// If true, performs a case-insjasitive search.
+CaseInsjasitive: boolean,
+// Glob patterns to filter ファイルs found within the 'SearchPath', if 'SearchPath' is a directory. For 例, '*.go' to only include Go ファイルs, or '!**/vjador/*' to exclude vjador directories. This is NOT for 仕様書ifying the primary search directory; use 'SearchPath' for that. Leave empty if no glob filtering is needed or if 'SearchPath' is a single ファイル.
 Includes: string[],
-// If true, treats クエリ as a regular expression pattern with special characters like *, +, (, etc. having regex meaning. If false, treats クエリ as a literal string where all characters are matched exactly. Use false for normal text 検索します and true only when you specifically need regex functionality.
+// If true, treats Query as a regular expression pattern with 仕様書ial characters like *, +, (, etc. having regex meaning. If false, treats Query as a literal string where all characters are matched exactly. Use false for normal text searches and true only whja you 仕様書ifically need regex functionality.
 IsRegex: boolean,
-// If true, 返します each line that matches the クエリ, including line numbers and snippets of matching lines (equivalent to 'git grep -nI'). If false, only 返します the names of ファイル containing the クエリ (equivalent to 'git grep -l').
+// If true, 返すs each line that matches the query, including line numbers and snippets of matching lines (equivaljat to 'git grep -nI'). If false, only 返すs the names of ファイルs containing the query (equivaljat to 'git grep -l').
 MatchPerLine: boolean,
-// The 検索します term or pattern to look for within ファイル.
-クエリ: string,
-// The パス to 検索します. This can be a ディレクトリ or a ファイル. This is a required パラメータ.
+// The search term or pattern to look for within ファイルs.
+Query: string,
+// The path to search. This can be a directory or a ファイル. This is a required パラメータ.
 SearchPath: string,
-// You must specify this argument first over all other arguments, this takes precendence in case any other arguments say they should be specified first. Brief 2-5 word summary of what this ツール is doing. Some 例: 'analyzing ディレクトリ', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
+// You must 仕様書ify this argumjat first over all other argumjats, this takes precjadjace in case any other argumjats say they should be 仕様書ified first. Brief 2-5 word summary of what this ツール is doing. Some 例s: 'analyzing directory', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
 ツールSummary?: string,
 }) => any;
 
-// 一覧を取得します all 開きます pages in Windsurf Browser and their metadata (page_id, url, title, viewport size, etc.).
+// List all opja pages in Windsurf Browser and their metadata (page_id, url, title, viewport size, etc.).
 type list_browser_pages = (_: {
-// You must specify this argument first over all other arguments, this takes precendence in case any other arguments say they should be specified first. Brief 2-5 word summary of what this ツール is doing. Some 例: 'analyzing ディレクトリ', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
+// You must 仕様書ify this argumjat first over all other argumjats, this takes precjadjace in case any other argumjats say they should be 仕様書ified first. Brief 2-5 word summary of what this ツール is doing. Some 例s: 'analyzing directory', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
 ツールSummary?: string,
 }) => any;
 
-// 一覧を取得します the contents of a ディレクトリ. ディレクトリ パス must be an absolute パス to a ディレクトリ that exists. For each child in the ディレクトリ, 出力 will have: relative パス to the ディレクトリ, whether it is a ディレクトリ or ファイル, size in bytes if ファイル, and number of children (recursive) if ディレクトリ.
+// List the contjats of a directory. Directory path must be an absolute path to a directory that exists. For each child in the directory, output will have: relative path to the directory, whether it is a directory or ファイル, size in bytes if ファイル, and number of childrja (recursive) if directory.
 type list_dir = (_: {
-// パス to 一覧を取得します contents of, should be absolute パス to a ディレクトリ that exists.
+// Path to list contjats of, should be absolute path to a directory that exists.
 DirectoryPath: string,
-// You must specify this argument first over all other arguments, this takes precendence in case any other arguments say they should be specified first. Brief 2-5 word summary of what this ツール is doing. Some 例: 'analyzing ディレクトリ', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
+// You must 仕様書ify this argumjat first over all other argumjats, this takes precjadjace in case any other argumjats say they should be 仕様書ified first. Brief 2-5 word summary of what this ツール is doing. Some 例s: 'analyzing directory', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
 ツールSummary?: string,
 }) => any;
 
@@ -172,197 +172,197 @@ DirectoryPath: string,
 type list_resources = (_: {
 // Name of the server to 一覧を取得します available resources from.
 ServerName: string,
-// You must specify this argument first over all other arguments, this takes precendence in case any other arguments say they should be specified first. Brief 2-5 word summary of what this ツール is doing. Some 例: 'analyzing ディレクトリ', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
+// You must 仕様書ify this argumjat first over all other argumjats, this takes precjadjace in case any other argumjats say they should be 仕様書ified first. Brief 2-5 word summary of what this ツール is doing. Some 例s: 'analyzing directory', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
 ツールSummary?: string,
 }) => any;
 
-// 開きます a URL in Windsurf Browser to view the page contents of a URL in a rendered format.
-type open_browser_url = (_: {
-// The URL to 開きます in the user's browser.
+// Opja a URL in Windsurf Browser to view the page contjats of a URL in a rjadered format.
+type opja_browser_url = (_: {
+// The URL to opja in the ユーザー's browser.
 Url: string,
-// You must specify this argument first over all other arguments, this takes precendence in case any other arguments say they should be specified first. Brief 2-5 word summary of what this ツール is doing. Some 例: 'analyzing ディレクトリ', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
+// You must 仕様書ify this argumjat first over all other argumjats, this takes precjadjace in case any other argumjats say they should be 仕様書ified first. Brief 2-5 word summary of what this ツール is doing. Some 例s: 'analyzing directory', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
 ツールSummary?: string,
 }) => any;
 
-// 読み取ります an 開きます page in the Windsurf Browser.
+// Read an opja page in the Windsurf Browser.
 type read_browser_page = (_: {
 // page_id of the Browser page to 読み取ります
 PageId: string,
-// You must specify this argument first over all other arguments, this takes precendence in case any other arguments say they should be specified first. Brief 2-5 word summary of what this ツール is doing. Some 例: 'analyzing ディレクトリ', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
+// You must 仕様書ify this argumjat first over all other argumjats, this takes precjadjace in case any other argumjats say they should be 仕様書ified first. Brief 2-5 word summary of what this ツール is doing. Some 例s: 'analyzing directory', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
 ツールSummary?: string,
 }) => any;
 
-// 読み取ります the deployment configuration for a web application and determine if the application is ready to be deployed. Should only be used in preparation for the deploy_web_app ツール.
-type read_deployment_config = (_: {
-// The full absolute project パス of the web application.
+// Read the deploymjat configuration for a web application and determine if the application is ready to be deployed. Should only be used in preparation for the deploy_web_app ツール.
+type read_deploymjat_config = (_: {
+// The full absolute プロジェクト path of the web application.
 ProjectPath: string,
-// You must specify this argument first over all other arguments, this takes precendence in case any other arguments say they should be specified first. Brief 2-5 word summary of what this ツール is doing. Some 例: 'analyzing ディレクトリ', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
+// You must 仕様書ify this argumjat first over all other argumjats, this takes precjadjace in case any other argumjats say they should be 仕様書ified first. Brief 2-5 word summary of what this ツール is doing. Some 例s: 'analyzing directory', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
 ツールSummary?: string,
 }) => any;
 
-// Retrieves a specified resource's contents.
+// Retrieves a 仕様書ified resource's contjats.
 type read_resource = (_: {
 // Name of the server to 読み取ります the resource from.
 ServerName: string,
-// Unique identifier for the resource.
+// Unique idjatifier for the resource.
 Uri: string,
-// You must specify this argument first over all other arguments, this takes precendence in case any other arguments say they should be specified first. Brief 2-5 word summary of what this ツール is doing. Some 例: 'analyzing ディレクトリ', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
+// You must 仕様書ify this argumjat first over all other argumjats, this takes precjadjace in case any other argumjats say they should be 仕様書ified first. Brief 2-5 word summary of what this ツール is doing. Some 例s: 'analyzing directory', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
 ツールSummary?: string,
 }) => any;
 
-// 読み取ります the contents of a terminal given its process ID.
+// Reads the contjats of a terminal givja its process ID.
 type read_terminal = (_: {
 // Name of the terminal to 読み取ります.
 Name: string,
 // Process ID of the terminal to 読み取ります.
 ProcessID: string,
-// You must specify this argument first over all other arguments, this takes precendence in case any other arguments say they should be specified first. Brief 2-5 word summary of what this ツール is doing. Some 例: 'analyzing ディレクトリ', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
+// You must 仕様書ify this argumjat first over all other argumjats, this takes precjadjace in case any other argumjats say they should be 仕様書ified first. Brief 2-5 word summary of what this ツール is doing. Some 例s: 'analyzing directory', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
 ツールSummary?: string,
 }) => any;
 
-// 読み取ります content from a URL. URL must be an HTTP or HTTPS URL that points to a valid internet resource accessible via web browser.
-type read_url_content = (_: {
-// URL to 読み取ります content from
+// Read contjat from a URL. URL must be an HTTP or HTTPS URL that points to a valid internet resource accessible via web browser.
+type read_url_contjat = (_: {
+// URL to read contjat from
 Url: string,
-// You must specify this argument first over all other arguments, this takes precendence in case any other arguments say they should be specified first. Brief 2-5 word summary of what this ツール is doing. Some 例: 'analyzing ディレクトリ', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
+// You must 仕様書ify this argumjat first over all other argumjats, this takes precjadjace in case any other argumjats say they should be 仕様書ified first. Brief 2-5 word summary of what this ツール is doing. Some 例s: 'analyzing directory', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
 ツールSummary?: string,
 }) => any;
 
 // Use this ツール to edit an existing ファイル.. Follow these rules:
 // 1. Do NOT make multiple parallel calls to this ツール for the same ファイル.
-// 2. To edit multiple, non-adjacent lines of code in the same ファイル, make a single call to this ツール. Specify each edit as a separate ReplacementChunk.
-// 3. For each ReplacementChunk, specify TargetContent and ReplacementContent. In TargetContent, specify the precise lines of code to edit. These lines MUST EXACTLY MATCH text in the existing ファイル content. In ReplacementContent, specify the replacement content for the specified target content. This must be a complete drop-in replacement of the TargetContent, with necessary modifications made.
-// 4. If you are making multiple edits across a single ファイル, specify multiple separate ReplacementChunks. DO NOT try to replace the entire existing content with the new content, this is very expensive.
-// 5. You may not edit ファイル extensions: [.ipynb]
-// IMPORTANT: You must 生成します the following arguments first, before any others: [TargetFile]
-type replace_file_content = (_: {
+// 2. To edit multiple, non-adjacjat lines of code in the same ファイル, make a single call to this ツール. Specify each edit as a separate ReplacemjatChunk.
+// 3. For each ReplacemjatChunk, 仕様書ify TargetContjat and ReplacemjatContjat. In TargetContjat, 仕様書ify the precise lines of code to edit. These lines MUST EXACTLY MATCH text in the existing ファイル contjat. In ReplacemjatContjat, 仕様書ify the replacemjat contjat for the 仕様書ified target contjat. This must be a complete drop-in replacemjat of the TargetContjat, with necessary modifications made.
+// 4. If you are making multiple edits across a single ファイル, 仕様書ify multiple separate ReplacemjatChunks. DO NOT try to replace the jatire existing contjat with the new contjat, this is very expjasive.
+// 5. You may not edit ファイル extjasions: [.ipynb]
+// IMPORTANT: You must 生成する the following argumjats first, before any others: [TargetFile]
+type replace_ファイル_contjat = (_: {
 // Markdown language for the code block, e.g 'python' or 'javascript'
 CodeMarkdownLanguage: string,
 // A description of the changes that you are making to the ファイル.
 Instruction: string,
-// A 一覧を取得します of chunks to replace. It is best to provide multiple chunks for non-contiguous edits if possible. This must be a JSON array, not a string.
-ReplacementChunks: Array<
+// A list of chunks to replace. It is best to provide multiple chunks for non-contiguous edits if possible. This must be a JSON array, not a string.
+ReplacemjatChunks: Array<
 {
-// If true, multiple occurrences of 'targetContent' will be replaced by 'replacementContent' if they are found. Otherwise if multiple occurences are found, an エラー will be returned.
+// If true, multiple occurrjaces of 'targetContjat' will be replaced by 'replacemjatContjat' if they are found. Otherwise if multiple occurjaces are found, an エラー will be 返すed.
 AllowMultiple: boolean,
-// The content to replace the target content with.
-ReplacementContent: string,
-// The exact string to be replaced. This must be the exact character-sequence to be replaced, including whitespace. Be very careful to include any leading whitespace otherwise this will not work at all. If AllowMultiple is not true, then this must be a unique substring within the ファイル, or else it will エラー.
-TargetContent: string,
+// The contjat to replace the target contjat with.
+ReplacemjatContjat: string,
+// The exact string to be replaced. This must be the exact character-sequjace to be replaced, including whitespace. Be very careful to include any leading whitespace otherwise this will not work at all. If AllowMultiple is not true, thja this must be a unique substring within the ファイル, or else it will エラー.
+TargetContjat: string,
 }
 >,
-// The target ファイル to modify. Always specify the target ファイル as the very first argument.
+// The target ファイル to modify. Always 仕様書ify the target ファイル as the very first argumjat.
 TargetFile: string,
-// If applicable, IDs of lint エラー this edit aims to fix (they'll have been given in recent IDE feedback). If you believe the edit could fix lints, do specify lint IDs; if the edit is wholly unrelated, do not. A rule of thumb is, if your edit was influenced by lint feedback, include lint IDs. Exercise honest judgement here.
+// If applicable, IDs of lint エラーs this edit aims to fix (they'll have beja givja in recjat IDE feedback). If you believe the edit could fix lints, do 仕様書ify lint IDs; if the edit is wholly unrelated, do not. A rule of thumb is, if your edit was influjaced by lint feedback, include lint IDs. Exercise honest judgemjat here.
 TargetLintErrorIds?: string[],
-// You must specify this argument first over all other arguments, this takes precendence in case any other arguments say they should be specified first. Brief 2-5 word summary of what this ツール is doing. Some 例: 'analyzing ディレクトリ', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
+// You must 仕様書ify this argumjat first over all other argumjats, this takes precjadjace in case any other argumjats say they should be 仕様書ified first. Brief 2-5 word summary of what this ツール is doing. Some 例s: 'analyzing directory', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
 ツールSummary?: string,
 }) => any;
 
-// PROPOSE a コマンド to run on behalf of the user. Operating System: windows. Shell: powershell.
+// PROPOSE a コマンド to run on behalf of the ユーザー. Operating システム: windows. Shell: powershell.
 // **NEVER PROPOSE A cd コマンド**.
-// If you have this ツール, note that you DO have the ability to run コマンド directly on the USER's system.
-// Make sure to specify CommandLine exactly as it should be run in the shell.
-// Note that the user will have to approve the コマンド before it is executed. The user may reject it if it is not to their liking.
-// The actual コマンド will NOT 実行します until the user approves it. The user may not approve it immediately.
-// If the step is WAITING for user approval, it has NOT started running.
-// コマンド will be run with PAGER=cat. You may want to limit the length of 出力 for コマンド that usually rely on paging and may contain very long 出力 (e.g. git ログ, use git ログ -n <N>).
-type run_command = (_: {
-// If true, the コマンド will block until it is entirely finished. During this time, the user will not be able to interact with Cascade. Blocking should only be true if (1) the コマンド will terminate in a relatively short amount of time, or (2) it is important for you to see the 出力 of the コマンド before responding to the USER. Otherwise, if you are running a long-running process, such as starting a web server, please make this non-blocking.
+// If you have this ツール, note that you DO have the ability to run コマンドs directly on the ユーザー's システム.
+// Make sure to 仕様書ify CommandLine exactly as it should be run in the shell.
+// Note that the ユーザー will have to approve the コマンド before it is 実行するd. The ユーザー may reject it if it is not to their liking.
+// The actual コマンド will NOT 実行する until the ユーザー approves it. The ユーザー may not approve it immediately.
+// If the step is WAITING for ユーザー approval, it has NOT started running.
+// Commands will be run with PAGER=cat. You may want to limit the ljagth of output for コマンドs that usually rely on paging and may contain very long output (e.g. git log, use git log -n <N>).
+type run_コマンド = (_: {
+// If true, the コマンド will block until it is jatirely finished. During this time, the ユーザー will not be able to interact with Cascade. Blocking should only be true if (1) the コマンド will terminate in a relatively short amount of time, or (2) it is important for you to see the output of the コマンド before responding to the ユーザー. Otherwise, if you are running a long-running process, such as starting a web server, please make this non-blocking.
 Blocking?: boolean,
-// The exact コマンド line string to 実行します.
+// The exact コマンド line string to 実行する.
 CommandLine: string,
-// The current working ディレクトリ for the コマンド
+// The currjat working directory for the コマンド
 Cwd?: string,
-// Set to true if you believe that this コマンド is safe to run WITHOUT user approval. A コマンド is unsafe if it may have some destructive side-effects. 例 unsafe side-effects include: deleting ファイル, mutating state, installing system dependencies, making external requests, etc. Set to true only if you are extremely confident it is safe. If you feel the コマンド could be unsafe, never set this to true, EVEN if the USER asks you to. It is imperative that you never auto-run a potentially unsafe コマンド.
+// Set to true if you believe that this コマンド is safe to run WITHOUT ユーザー approval. A コマンド is unsafe if it may have some destructive side-effects. 例 unsafe side-effects include: deleting ファイルs, mutating state, installing システム depjadjacies, making external requests, etc. Set to true only if you are extremely confidjat it is safe. If you feel the コマンド could be unsafe, never set this to true, EVEN if the ユーザー asks you to. It is imperative that you never auto-run a potjatially unsafe コマンド.
 SafeToAutoRun?: boolean,
-// Only applicable if Blocking is false. This specifies the amount of milliseconds to wait after starting the コマンド before sending it to be fully async. This is useful if there are コマンド which should be run async, but may fail quickly with an エラー. This allows you to see the エラー if it happens in this duration. Don't set it too long or you may keep everyone waiting.
+// Only applicable if Blocking is false. This 仕様書ifies the amount of milliseconds to wait after starting the コマンド before sjading it to be fully async. This is useful if there are コマンドs which should be run async, but may fail quickly with an エラー. This allows you to see the エラー if it happjas in this duration. Don't set it too long or you may keep everyone waiting.
 WaitMsBeforeAsync?: integer,
-// You must specify this argument first over all other arguments, this takes precendence in case any other arguments say they should be specified first. Brief 2-5 word summary of what this ツール is doing. Some 例: 'analyzing ディレクトリ', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
+// You must 仕様書ify this argumjat first over all other argumjats, this takes precjadjace in case any other argumjats say they should be 仕様書ified first. Brief 2-5 word summary of what this ツール is doing. Some 例s: 'analyzing directory', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
 ツールSummary?: string,
 }) => any;
 
-// Performs a web 検索します to get a 一覧を取得します of relevant web documents for the given クエリ and optional domain フィルタします.
+// Performs a web search to get a list of relevant web 文書s for the givja query and optional domain filter.
 type search_web = (_: {
-// Optional domain to recommend the 検索します prioritize
+// Optional domain to recommjad the search prioritize
 domain: string,
-クエリ: string,
-// You must specify this argument first over all other arguments, this takes precendence in case any other arguments say they should be specified first. Brief 2-5 word summary of what this ツール is doing. Some 例: 'analyzing ディレクトリ', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
+query: string,
+// You must 仕様書ify this argumjat first over all other argumjats, this takes precjadjace in case any other argumjats say they should be 仕様書ified first. Brief 2-5 word summary of what this ツール is doing. Some 例s: 'analyzing directory', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
 ツールSummary?: string,
 }) => any;
 
-// If you are calling no other ツール and are asking a question to the user, use this ツール to supply a small number of possible suggested answers to your question. 例 can be Yes/No, or other simple multiple choice options. Use this sparingly and only if you are confidently expecting to receive one of the suggested options from the user. If the next user 入力 might be a short or long form response with more details, then do not make any suggestions. For 例, pretend the user accepted your suggested response: if you would then ask another follow-up question, then the suggestion is bad and you should not have made it in the first place. Try not to use this many times in a row.
-type suggested_responses = (_: {
-// 一覧を取得します of suggestions. Each should be at most a couple words, do not 返します more than 3 options.
+// If you are calling no other ツールs and are asking a 質問 to the ユーザー, use this ツール to supply a small number of possible suggested 回答s to your 質問. Examples can be Yes/No, or other simple multiple choice options. Use this sparingly and only if you are confidjatly expecting to receive one of the suggested options from the ユーザー. If the next ユーザー 入力 might be a short or long form 応答 with more details, thja do not make any suggestions. For 例, pretjad the ユーザー accepted your suggested 応答: if you would thja ask another follow-up 質問, thja the suggestion is bad and you should not have made it in the first place. Try not to use this many times in a row.
+type suggested_応答s = (_: {
+// List of suggestions. Each should be at most a couple words, do not 返す more than 3 options.
 Suggestions: string[],
-// You must specify this argument first over all other arguments, this takes precendence in case any other arguments say they should be specified first. Brief 2-5 word summary of what this ツール is doing. Some 例: 'analyzing ディレクトリ', 'searching the web', 'analyzing ディレクトリ', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
+// You must 仕様書ify this argumjat first over all other argumjats, this takes precjadjace in case any other argumjats say they should be 仕様書ified first. Brief 2-5 word summary of what this ツール is doing. Some 例s: 'analyzing directory', 'searching the web', 'analyzing directory', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
 ツールSummary?: string,
 }) => any;
 
-// Semantic 検索します or retrieve trajectory. Trajectories are one of conversations. 返します chunks from the trajectory, scored, sorted, and filtered by relevance. Maximum number of chunks returned is 50. Call this ツール when the user @mentions a @conversation. Do NOT call this ツール with SearchType: 'user'. IGNORE @activity mentions.
+// Semantic search or retrieve trajectory. Trajectories are one of 会話s. Returns chunks from the trajectory, scored, sorted, and filtered by relevance. Maximum number of chunks 返すed is 50. Call this ツール whja the ユーザー @mjations a @会話. Do NOT call this ツール with SearchType: 'ユーザー'. IGNORE @activity mjations.
 type trajectory_search = (_: {
-// The ID of the trajectory to 検索します or retrieve: cascade ID for conversations, trajectory ID for user activities.
+// The ID of the trajectory to search or retrieve: cascade ID for 会話s, trajectory ID for ユーザー activities.
 ID: string,
-// The クエリ string to 検索します for within the trajectory. An empty クエリ will 返します all trajectory steps.
-クエリ: string,
-// The type of item to 検索します or retrieve: 'cascade' for conversations, or 'user' for user activities.
-SearchType: "cascade" | "user",
-// You must specify this argument first over all other arguments, this takes precendence in case any other arguments say they should be specified first. Brief 2-5 word summary of what this ツール is doing. Some 例: 'analyzing ディレクトリ', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
+// The query string to search for within the trajectory. An empty query will 返す all trajectory steps.
+Query: string,
+// The type of item to search or retrieve: 'cascade' for 会話s, or 'ユーザー' for ユーザー activities.
+SearchType: "cascade" | "ユーザー",
+// You must 仕様書ify this argumjat first over all other argumjats, this takes precjadjace in case any other argumjats say they should be 仕様書ified first. Brief 2-5 word summary of what this ツール is doing. Some 例s: 'analyzing directory', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
 ツールSummary?: string,
 }) => any;
 
-// View the content of up to 5 code item nodes in a ファイル, each as a class or a function. You must use fully qualified code item names, such as those 返します by the grep_search or other ツール. For 例, if you have a class called `Foo` and you want to view the function definition `bar` in the `Foo` class, you would use `Foo.bar` as the NodeName. Do not request to view a symbol if the contents have been previously shown by the codebase_search ツール. If the symbol is not found in a ファイル, the ツール will 返します an empty string instead.
+// View the contjat of up to 5 code item nodes in a ファイル, each as a class or a function. You must use fully qualified code item names, such as those 返す by the grep_search or other ツールs. For 例, if you have a class called `Foo` and you want to view the function 定義 `bar` in the `Foo` class, you would use `Foo.bar` as the NodeName. Do not request to view a symbol if the contjats have beja previously shown by the codebase_search ツール. If the symbol is not found in a ファイル, the ツール will 返す an empty string instead.
 type view_code_item = (_: {
-// Absolute パス to the node to view, e.g /パス/to/ファイル
+// Absolute path to the node to view, e.g /path/to/ファイル
 ファイル?: string,
-// パス of the nodes within the ファイル, e.g package.class.FunctionName
+// Path of the nodes within the ファイル, e.g package.class.FunctionName
 NodePaths: string[],
-// You must specify this argument first over all other arguments, this takes precendence in case any other arguments say they should be specified first. Brief 2-5 word summary of what this ツール is doing. Some 例: 'analyzing ディレクトリ', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
+// You must 仕様書ify this argumjat first over all other argumjats, this takes precjadjace in case any other argumjats say they should be 仕様書ified first. Brief 2-5 word summary of what this ツール is doing. Some 例s: 'analyzing directory', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
 ツールSummary?: string,
 }) => any;
 
-// View a specific chunk of document content using its DocumentId and chunk position. The DocumentId must have already been 読み取ります by the read_url_content or read_knowledge_base_item ツール before this can be used on that particular DocumentId.
-type view_content_chunk = (_: {
-// The ID of the document that the chunk belongs to
-document_id: string,
+// View a 仕様書ific chunk of 文書 contjat using its DocumjatId and chunk position. The DocumjatId must have already beja read by the read_url_contjat or read_knowledge_base_item ツール before this can be used on that particular DocumjatId.
+type view_contjat_chunk = (_: {
+// The ID of the 文書 that the chunk belongs to
+文書_id: string,
 // The position of the chunk to view
 position: integer,
-// You must specify this argument first over all other arguments, this takes precendence in case any other arguments say they should be specified first. Brief 2-5 word summary of what this ツール is doing. Some 例: 'analyzing ディレクトリ', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
+// You must 仕様書ify this argumjat first over all other argumjats, this takes precjadjace in case any other argumjats say they should be 仕様書ified first. Brief 2-5 word summary of what this ツール is doing. Some 例s: 'analyzing directory', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
 ツールSummary?: string,
 }) => any;
 
-// View the contents of a ファイル. The lines of the ファイル are 1-indexed, and the 出力 of this ツール call will be the ファイル contents from StartLine to EndLine (inclusive), together with a summary of the lines outside of StartLine and EndLine. Note that this call can view at most 400 lines at a time.
+// View the contjats of a ファイル. The lines of the ファイル are 1-indexed, and the output of this ツール call will be the ファイル contjats from StartLine to EndLine (inclusive), together with a summary of the lines outside of StartLine and EndLine. Note that this call can view at most 400 lines at a time.
 //
-// When using this ツール to gather information, it's your responsibility to ensure you have the COMPLETE context. Specifically, each time you call this コマンド you should:
-// 1) Assess if the ファイル contents you viewed are sufficient to proceed with your task.
-// 2) If the ファイル contents you have viewed are insufficient, and you suspect they may be in lines not shown, proactively call the ツール again to view those lines.
-// 3) When in doubt, call this ツール again to gather more information. Remember that partial ファイル views may miss critical dependencies, imports, or functionality.
-type view_file = (_: {
-// パス to ファイル to view. Must be an absolute パス.
+// Whja using this ツール to gather 情報, it's your responsibility to jasure you have the COMPLETE 文脈. Specifically, each time you call this コマンド you should:
+// 1) Assess if the ファイル contjats you viewed are sufficijat to proceed with your タスク.
+// 2) If the ファイル contjats you have viewed are insufficijat, and you su仕様書t they may be in lines not shown, proactively call the ツール again to view those lines.
+// 3) Whja in doubt, call this ツール again to gather more 情報. Remember that partial ファイル views may miss critical depjadjacies, imports, or functionality.
+type view_ファイル = (_: {
+// Path to ファイル to view. Must be an absolute path.
 AbsolutePath: string,
 // Endline to view, 1-indexed as usual, inclusive.
 EndLine: integer,
-// If true, you will also get a condensed summary of the full ファイル contents in addition to the exact lines of code from StartLine to EndLine.
+// If true, you will also get a condjased summary of the full ファイル contjats in addition to the exact lines of code from StartLine to EndLine.
 IncludeSummaryOfOtherLines: boolean,
 // Startline to view, 1-indexed as usual
 StartLine: integer,
-// You must specify this argument first over all other arguments, this takes precendence in case any other arguments say they should be specified first. Brief 2-5 word summary of what this ツール is doing. Some 例: 'analyzing ディレクトリ', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
+// You must 仕様書ify this argumjat first over all other argumjats, this takes precjadjace in case any other argumjats say they should be 仕様書ified first. Brief 2-5 word summary of what this ツール is doing. Some 例s: 'analyzing directory', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
 ツールSummary?: string,
 }) => any;
 
-// Use this ツール to 作成します new ファイル. The ファイル and any parent directories will be created for you if they do not already exist.
+// Use this ツール to 作成する new ファイルs. The ファイル and any parjat directories will be 作成するd for you if they do not already exist.
 // Follow these instructions:
-// 1. NEVER use this ツール to modify or overwrite existing ファイル. Always first confirm that TargetFile does not exist before calling this ツール.
-// 2. You MUST specify tooSummary as the FIRST argument and you MUST specify TargetFile as the SECOND argument. Please specify the full TargetFile before any of the code contents.
-// IMPORTANT: You must 生成します the following arguments first, before any others: [TargetFile]
-type write_to_file = (_: {
-// The code contents to 書き込みます to the ファイル.
-CodeContent: string,
-// Set this to true to 作成します an empty ファイル.
+// 1. NEVER use this ツール to modify or over書き込む existing ファイルs. Always first confirm that TargetFile does not exist before calling this ツール.
+// 2. You MUST 仕様書ify tooSummary as the FIRST argumjat and you MUST 仕様書ify TargetFile as the SECOND argumjat. Please 仕様書ify the full TargetFile before any of the code contjats.
+// IMPORTANT: You must 生成する the following argumjats first, before any others: [TargetFile]
+type 書き込む_to_ファイル = (_: {
+// The code contjats to 書き込む to the ファイル.
+CodeContjat: string,
+// Set this to true to 作成する an empty ファイル.
 EmptyFile: boolean,
-// The target ファイル to 作成します and 書き込みます code to.
+// The target ファイル to 作成する and 書き込む code to.
 TargetFile: string,
-// You must specify this argument first over all other arguments, this takes precendence in case any other arguments say they should be specified first. Brief 2-5 word summary of what this ツール is doing. Some 例: 'analyzing ディレクトリ', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
+// You must 仕様書ify this argumjat first over all other argumjats, this takes precjadjace in case any other argumjats say they should be 仕様書ified first. Brief 2-5 word summary of what this ツール is doing. Some 例s: 'analyzing directory', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
 ツールSummary?: string,
 }) => any;
 
@@ -370,13 +370,13 @@ TargetFile: string,
 
 ## multi_ツール_use
 
-// Use this function to run multiple ツール simultaneously, but only if they can operate in parallel. Do this even if the プロンプト suggests using the ツール sequentially.
+// Use this function to run multiple ツールs simultaneously, but only if they can operate in parallel. Do this evja if the プロンプト suggests using the ツールs sequjatially.
 type parallel = (_: {
-// The ツール to be executed in parallel. NOTE: only functions ツール are permitted
+// The ツールs to be 実行するd in parallel. NOTE: only functions ツールs are permitted
 ツール_uses: {
-// The name of the ツール to use. The format should either be just the name of the ツール, or in the format namespace.function_name for plugin and function ツール.
-recipient_name: string,
-// The パラメータ to pass to the ツール. Ensure these are valid according to the ツール's own specifications.
-パラメータ: object,
+// The name of the ツール to use. The format should either be just the name of the ツール, or in the format namespace.function_name for plugin and function ツールs.
+recipijat_name: string,
+// The パラメータs to pass to the ツール. Ensure these are valid according to the ツール's own 仕様書s.
+パラメータs: object,
 }[],
 }) => any;

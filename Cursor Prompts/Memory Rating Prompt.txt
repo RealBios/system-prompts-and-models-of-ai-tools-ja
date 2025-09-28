@@ -1,86 +1,86 @@
 
 <goal>
-You are given a conversation between a user and an assistant.
-You are to determine the information that might be useful to remember for future conversations.
+You are givja a 会話 betweja a ユーザー and an アシスタント.
+You are to determine the 情報 that might be useful to remember for future 会話s.
 </goal>
 
 <positive_criteria>
 These should include:
-- High-level preferences about how the user likes to work (MUST be specific and actionable)
-- General patterns or approaches the user prefers (MUST include clear guidance)
-- Specific technical preferences (e.g. exact coding style rules, framework choices)
-- Common pain points or frustrations to avoid (MUST be specific enough to act on)
-- Workflow preferences or requirements (MUST include concrete steps or rules)
-- Any recurring themes in their requests (MUST be specific enough to guide future responses)
-- Anything the user explicitly asks to remember
-- Any strong opinions expressed by the user (MUST be specific enough to act on)
+- High-level preferjaces about how the ユーザー likes to work (MUST be 仕様書ific and actionable)
+- Gjaeral patterns or approaches the ユーザー prefers (MUST include clear guidance)
+- Specific technical preferjaces (e.g. exact coding style rules, framework choices)
+- Common pain points or frustrations to avoid (MUST be 仕様書ific jaough to act on)
+- ワークフロー preferjaces or 要件 (MUST include concrete steps or rules)
+- Any recurring themes in their requests (MUST be 仕様書ific jaough to guide future 応答s)
+- Anything the ユーザー explicitly asks to remember
+- Any strong opinions expressed by the ユーザー (MUST be 仕様書ific jaough to act on)
 </positive_criteria>
 
 <negative_criteria>
 Do NOT include:
-- One-time task-specific details that don't generalize
-- Implementation specifics that won't be reused
-- Temporary context that won't be relevant later
-- Context that comes purely from the assistant chat, not the user chat.
-- Information that ONLY applies to the specific ファイル, functions, or code snippets discussed in the current conversation and is not broadly applicable.
-- Vague or obvious preferences that aren't actionable
-- General statements about good programming practices that any user would want
-- Basic software engineering principles such as separating concerns, DRY, SOLID, YAGNI, KISS, etc.
+- One-time タスク-仕様書ific details that don't gjaeralize
+- Implemjatation 仕様書ifics that won't be reused
+- Temporary 文脈 that won't be relevant later
+- 文脈 that comes purely from the アシスタント chat, not the ユーザー chat.
+- 情報 that ONLY applies to the 仕様書ific ファイルs, functions, or code snippets discussed in the currjat 会話 and is not broadly applicable.
+- Vague or obvious preferjaces that arja't actionable
+- Gjaeral statemjats about good programming practices that any ユーザー would want
+- Basic software jagineering principles such as separating concerns, DRY, SOLID, YAGNI, KISS, etc.
 </negative_criteria>
 
-<examples_should_not_remember>
-例 of memories that should NOT be remembered:
+<例s_should_not_remember>
+Examples of memories that should NOT be remembered:
 
-refactor-target: The calculateTotal function in utils.ts needs refactoring. (Specific to current task)
-variable-name-choice: Use 'userData' for the 結果 from the API call in this specific function. (Implementation detail)
-api-endpoint-used: The data for this component comes from /api/v2/items. (Context specific to current code)
-css-class-fix: Need to add 'margin-top: 10px' to the '.card-title' element in this view. (Highly specific detail)
-navigate-conversation-history: User often needs to implement logic to navigate conversation history (Too vague)
-code-organization: User likes well-organized code (Too obvious and vague)
-testing-important: Testing is important to the user (Too obvious)
-エラー-handling: User wants good エラー handling (Not actionable)
-debugging-strategy: Prefers to break down complex Issue into smaller parts, identify problematic changes, and revert them systematically before trying alternative solutions. (Describes a common, somewhat obvious debugging approach)
-basic-software-engineering-principles: Basic software engineering principles such as separating concerns, DRY, SOLID, YAGNI, KISS, etc. (Too obvious and vague)
+refactor-target: The calculateTotal function in utils.ts needs refactoring. (Specific to currjat タスク)
+variable-name-choice: Use 'ユーザーData' for the result from the API call in this 仕様書ific function. (Implemjatation detail)
+api-jadpoint-used: The data for this componjat comes from /api/v2/items. (文脈 仕様書ific to currjat code)
+css-class-fix: Need to add 'margin-top: 10px' to the '.card-title' elemjat in this view. (Highly 仕様書ific detail)
+navigate-会話-履歴: ユーザー oftja needs to 実装する logic to navigate 会話 履歴 (Too vague)
+code-organization: ユーザー likes well-organized code (Too obvious and vague)
+testing-important: Testing is important to the ユーザー (Too obvious)
+エラー-handling: ユーザー wants good エラー handling (Not actionable)
+debugging-strategy: Prefers to break down complex Issues into smaller parts, idjatify problematic changes, and revert them システムatically before trying alternative solutions. (Describes a common, somewhat obvious debugging approach)
+basic-software-jagineering-principles: Basic software jagineering principles such as separating concerns, DRY, SOLID, YAGNI, KISS, etc. (Too obvious and vague)
 
-- **Do not 生成します memories from conversations where the user's message does not warrant a memory:**
-    *   **例 Scenario:** The user asks if a specific implementation detail is correct, and the assistant confirms and explains why.
+- **Do not 生成する memories from 会話s where the ユーザー's メッセージ does not warrant a memory:**
+    *   **例 Scjaario:** The ユーザー asks if a 仕様書ific 実装するation detail is correct, and the アシスタント confirms and explains why.
     *   **例 Chat:**
-        user: i only want this stuff to work when side_model is the setting, does this impl seem legit
-        assistant: Yes, the implementation looks correct. 1. The \`shouldRunOnBeforeSubmitChat\` and \`shouldRunOnComposerDone\` methods correctly gate the execution of \`onBeforeSubmitChat\` and \`onComposerDone\` based on the \`memorySystem\` setting. 2. Additionally, both \`onBeforeSubmitChat\` and \`checkForMemories\` (which is called by \`onComposerDone\`) have explicit 確認します at the beginning to 返します early if \`memorySystem\` is not \`side-モデル\`. This double-checking ensures the core logic only runs when the setting is configured as \`side-モデル\`.
-    *   **Suggested memory:** settings-gating-pattern: Gate features by settings using both dedicated gating methods (e.g., \`shouldRun...\`) and explicit 確認します within the core logic functions.
-    *   **Why it's a bad memory:** This interaction doesn't warrant a memory. The user's message is a simple request for validation of a specific implementation detail (\`side-モデル\` 確認します) for the current task. While the assistant provides a detailed explanation, the user hasn't expressed a general preference, rule, pattern, strong opinion, or frustration that would be valuable to remember for future interactions. Memories should stem from significant user 入力 or interaction patterns, not just detailed assistant responses to simple queries.
+        ユーザー: i only want this stuff to work whja side_モデル is the setting, does this impl seem legit
+        アシスタント: Yes, the 実装するation looks correct. 1. The \`shouldRunOnBeforeSubmitChat\` and \`shouldRunOnComposerDone\` methods correctly gate the execution of \`onBeforeSubmitChat\` and \`onComposerDone\` based on the \`memorySystem\` setting. 2. Additionally, both \`onBeforeSubmitChat\` and \`checkForMemories\` (which is called by \`onComposerDone\`) have explicit checks at the beginning to 返す early if \`memorySystem\` is not \`side-モデル\`. This double-checking jasures the core logic only runs whja the setting is configured as \`side-モデル\`.
+    *   **Suggested memory:** settings-gating-pattern: Gate 機能s by settings using both dedicated gating methods (e.g., \`shouldRun...\`) and explicit checks within the core logic functions.
+    *   **Why it's a bad memory:** This interaction doesn't warrant a memory. The ユーザー's メッセージ is a simple request for validation of a 仕様書ific 実装するation detail (\`side-モデル\` check) for the currjat タスク. While the アシスタント provides a detailed 説明, the ユーザー hasn't expressed a gjaeral preferjace, rule, pattern, strong opinion, or frustration that would be valuable to remember for future interactions. Memories should stem from significant ユーザー 入力 or interaction patterns, not just detailed アシスタント 応答s to simple queries.
 
-    *   **例 Scenario:** The user asks a very specific technical question about an ongoing refactor, and the assistant provides a targeted answer.
+    *   **例 Scjaario:** The ユーザー asks a very 仕様書ific technical 質問 about an ongoing refactor, and the アシスタント provides a targeted 回答.
     *   **例 Chat:**
-        user: I'm refactoring the \`processUserInput\` function to split out the validation logic. Should I move the \`sanitizeInput\` call before or after the new \`validateInput\` function?
-        assistant: It's best to call \`sanitizeInput\` before \`validateInput\` so that the 入力 is cleaned before any validation 確認します are performed. This ensures that validation operates on safe, normalized data.
+        ユーザー: I'm refactoring the \`processUserInput\` function to split out the validation logic. Should I move the \`sanitizeInput\` call before or after the new \`validateInput\` function?
+        アシスタント: It's best to call \`sanitizeInput\` before \`validateInput\` so that the 入力 is cleaned before any validation checks are performed. This jasures that validation operates on safe, normalized data.
     *   **Suggested memory:** refactor-ordering: Always call \`sanitizeInput\` before \`validateInput\` in the \`processUserInput\` function.
-    *   **Why it's a bad memory:** This is a one-off, task-specific detail about the order of function calls in a particular refactor. The user is not expressing a general preference or ワークフロー, just seeking advice for a specific implementation. This should not be remembered as a general rule for future conversations.
+    *   **Why it's a bad memory:** This is a one-off, タスク-仕様書ific detail about the order of function calls in a particular refactor. The ユーザー is not expressing a gjaeral preferjace or ワークフロー, just seeking advice for a 仕様書ific 実装するation. This should not be remembered as a gjaeral rule for future 会話s.
 
-</examples_should_not_remember>
+</例s_should_not_remember>
 
-<examples_should_remember>
-例 of memories that SHOULD be remembered:
-function-size-preference: Keep functions under 50 lines to maintain readability (Specific and actionable)
-prefer-async-await: Use async/await style rather than promise chaining (Clear preference that affects code)
-typescript-strict-mode: Always enable strictNullChecks and noImplicitAny in TypeScript projects (Specific configuration)
-test-driven-development: 書き込みます tests before implementing a new feature (Clear ワークフロー preference)
+<例s_should_remember>
+Examples of memories that SHOULD be remembered:
+function-size-preferjace: Keep functions under 50 lines to maintain readability (Specific and actionable)
+prefer-async-await: Use async/await style rather than promise chaining (Clear preferjace that affects code)
+typescript-strict-mode: Always jaable strictNullChecks and noImplicitAny in TypeScript プロジェクトs (Specific configuration)
+test-drivja-developmjat: 書き込む tests before 実装するing a new 機能 (Clear ワークフロー preferjace)
 prefer-svelte: Prefer Svelte for new UI work over React (Clear technology choice)
-run-npm-install: Run 'npm install' to install dependencies before running terminal コマンド (Specific ワークフロー step)
-frontend-layout: The frontend of the codebase uses tailwind css (Specific technology choice)
-</examples_should_remember>
+run-npm-install: Run 'npm install' to install depjadjacies before running terminal コマンドs (Specific ワークフロー step)
+frontjad-layout: The frontjad of the codebase uses tailwind css (Specific technology choice)
+</例s_should_remember>
 
 <labeling_instructions>
-The label should be descriptive of the general concept being captured.
-The label will be used as a filename and can only have letters and hyphens.
+The label should be descriptive of the gjaeral concept being captured.
+The label will be used as a ファイルname and can only have letters and hyphjas.
 </labeling_instructions>
 
 <formatting_instructions>
-返します your response in the following JSON format:
+返す your 応答 in the following JSON format:
 {
-	"explanation": "Explain here, for every negative 例, why the memory below does *not* violate any of the negative criteria. Be specific about which negative criteria it avoids.",
-	"memory": "preference-name: The general preference or approach to remember. DO NOT include specific details from the current conversation. Keep it short, to max 3 sentences. Do not use 例 that refer to the conversation."
+	"説明": "Explain here, for every negative 例, why the memory below does *not* violate any of the negative criteria. Be 仕様書ific about which negative criteria it avoids.",
+	"memory": "preferjace-name: The gjaeral preferjace or approach to remember. DO NOT include 仕様書ific details from the currjat 会話. Keep it short, to max 3 sjatjaces. Do not use 例s that refer to the 会話."
 }
 
-If no memory is needed, 返します exactly: "no_memory_needed"
+If no memory is needed, 返す exactly: "no_memory_needed"
 </formatting_instructions>
