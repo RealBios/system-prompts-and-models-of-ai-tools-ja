@@ -177,6 +177,7 @@ class Translator:
             if translated is None:
                 # 翻訳に失敗した場合、元のテキストを返す（部分翻訳を避ける）
                 print(f"All translation engines failed for chunk {i+1}/{len(chunks)}. Using original text.")
+                print(f"Original text: {ch[:100]}...")
                 return text  # 元のテキストを返す
             
             out.append(translated)
@@ -201,10 +202,16 @@ class Translator:
                     "role": "system",
                     "content": (
                         f"Translate the following content completely into {to_lang}. "
-                        "IMPORTANT: Translate ALL text content to Japanese. Do not leave any English words untranslated. "
-                        "Preserve code blocks, JSON keys, placeholders, and formatting exactly as they are. "
-                        "Use consistent Japanese terminology throughout. "
-                        "Do not add extra commentary or explanations."
+                        "CRITICAL REQUIREMENTS:\n"
+                        "1. Translate EVERY single English word to Japanese\n"
+                        "2. Do not leave ANY English words untranslated\n"
+                        "3. Maintain the exact same structure and formatting\n"
+                        "4. Preserve code blocks, JSON keys, placeholders, and technical terms in their original form\n"
+                        "5. Use natural Japanese expressions\n"
+                        "6. Do not add any commentary, explanations, or extra text\n"
+                        "7. If you encounter technical terms that should remain in English, keep them as-is\n"
+                        "8. Ensure the translation is complete and coherent\n"
+                        "The output should be a complete Japanese translation of the input text."
                     ),
                 },
                 {"role": "user", "content": text},
@@ -259,15 +266,28 @@ class Translator:
 
 def translate_plain_file(p: Path, tr: Translator, to_lang: str, glossary: List[Tuple[str,str]]) -> None:
     s = read_text(p)
+    print(f"    Processing {len(s)} characters of text")
+    
     out_parts: List[str] = []
+    text_chunks = 0
+    code_chunks = 0
+    
     for kind, chunk in chunk_code_blocks(s):
         if kind == "code":
             out_parts.append(chunk)
+            code_chunks += 1
         else:
+            text_chunks += 1
+            print(f"    Translating text chunk {text_chunks} ({len(chunk)} chars)")
             jp = tr.translate(chunk, to_lang)
+            print(f"    Translation result: {len(jp)} chars")
             jp = apply_glossary(jp, glossary)
             out_parts.append(jp)
-    write_text(p, "".join(out_parts))
+    
+    print(f"    Processed {text_chunks} text chunks and {code_chunks} code chunks")
+    result = "".join(out_parts)
+    write_text(p, result)
+    print(f"    Final result: {len(result)} characters")
 
 def translate_json_value(
     v: Any,
@@ -376,7 +396,15 @@ def main() -> None:
             rel = str(p.relative_to(ROOT)).replace("\\", "/")
             print(f"[{i}/{len(target_files)}] [text] {rel}")
             try:
+                # 翻訳前のファイルサイズを記録
+                original_size = len(read_text(p))
+                print(f"  Original file size: {original_size} characters")
+                
                 translate_plain_file(p, tr, target_lang, glossary)
+                
+                # 翻訳後のファイルサイズを記録
+                translated_size = len(read_text(p))
+                print(f"  Translated file size: {translated_size} characters")
                 print(f"✓ Completed: {rel}")
             except Exception as e:
                 print(f"✗ Failed: {rel} - {e}")
