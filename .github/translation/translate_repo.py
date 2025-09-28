@@ -52,13 +52,26 @@ def load_glossary(p: Path) -> List[Tuple[str, str]]:
     return rows
 
 def apply_glossary(s: str, glossary: List[Tuple[str, str]]) -> str:
-    for src, dst in glossary:
-        # 完全一致と大文字小文字を区別しない置換の両方を行う
-        s = s.replace(src, dst)
-        # 単語境界での置換（より確実）
+    # 用語集の適用を最小限に抑制し、翻訳エンジンの自然な翻訳を尊重
+    # 重要な技術用語のみを置換
+    critical_terms = {
+        "pull request": "プルリクエスト",
+        "repository": "リポジトリ", 
+        "branch": "ブランチ",
+        "commit": "コミット",
+        "issue": "Issue",
+        "token": "トークン",
+        "parameter": "パラメータ",
+        "schema": "スキーマ",
+        "workflow": "ワークフロー"
+    }
+    
+    for src, dst in critical_terms.items():
+        # 単語境界でのみ置換（文脈を壊さない）
         import re
         pattern = re.compile(r'\b' + re.escape(src) + r'\b', re.IGNORECASE)
         s = pattern.sub(dst, s)
+    
     return s
 
 def chunk_code_blocks(s: str) -> List[Tuple[str, str]]:
@@ -201,22 +214,22 @@ class Translator:
                 {
                     "role": "system",
                     "content": (
-                        f"Translate the following content completely into {to_lang}. "
-                        "CRITICAL REQUIREMENTS:\n"
-                        "1. Translate EVERY single English word to Japanese\n"
-                        "2. Do not leave ANY English words untranslated\n"
-                        "3. Maintain the exact same structure and formatting\n"
-                        "4. Preserve code blocks, JSON keys, placeholders, and technical terms in their original form\n"
-                        "5. Use natural Japanese expressions\n"
-                        "6. Do not add any commentary, explanations, or extra text\n"
-                        "7. If you encounter technical terms that should remain in English, keep them as-is\n"
-                        "8. Ensure the translation is complete and coherent\n"
-                        "The output should be a complete Japanese translation of the input text."
+                        f"Translate the following content naturally and completely into {to_lang}. "
+                        "TRANSLATION GUIDELINES:\n"
+                        "1. Translate the ENTIRE text as natural, fluent Japanese\n"
+                        "2. Consider context and meaning, not just individual words\n"
+                        "3. Use appropriate Japanese idioms and expressions\n"
+                        "4. Maintain the original tone and style\n"
+                        "5. Preserve code blocks, JSON keys, placeholders, and technical terms exactly as they are\n"
+                        "6. Ensure the translation reads like native Japanese\n"
+                        "7. Do not add explanations or commentary\n"
+                        "8. Focus on meaning and context over literal word-for-word translation\n"
+                        "The result should be a complete, natural Japanese translation that preserves the original meaning and tone."
                     ),
                 },
                 {"role": "user", "content": text},
             ],
-            "temperature": 0.1,  # より一貫した翻訳のため温度を下げる
+            "temperature": 0.3,  # 自然な翻訳のため温度を上げる
         }
         # 最小限のリトライ（429/5xx）- 極めて短縮された待機時間
         for attempt in range(2):  # 5回から2回に削減
@@ -279,8 +292,12 @@ def translate_plain_file(p: Path, tr: Translator, to_lang: str, glossary: List[T
         else:
             text_chunks += 1
             print(f"    Translating text chunk {text_chunks} ({len(chunk)} chars)")
+            print(f"    Original: {chunk[:100]}...")
+            # 翻訳エンジンによる完全な翻訳を優先
             jp = tr.translate(chunk, to_lang)
+            print(f"    Translated: {jp[:100]}...")
             print(f"    Translation result: {len(jp)} chars")
+            # 用語集は翻訳後に軽微な調整のみ行う
             jp = apply_glossary(jp, glossary)
             out_parts.append(jp)
     
