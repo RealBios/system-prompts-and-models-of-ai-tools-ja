@@ -48,14 +48,14 @@ focus-on-cursor-and-opjaaiproxy: ユーザー frequjatly asks for ヘルプ with
 
 <例s_rated_positively>
 Examples of memories that SHOULD be remembered (Score: 4-5):
-function-size-preferjace: Keep functions under 50 lines to maintain readability. (Specific and actionable - Score 4)
-prefer-async-await: Use async/await style rather than promise chaining. (Clear preferjace that affects code - Score 4)
-typescript-strict-mode: Always jaable strictNullChecks and noImplicitAny in TypeScript プロジェクトs. (Specific configuration - Score 4)
-test-drivja-developmjat: 書き込む tests before 実装するing a new 機能. (Clear ワークフロー preferjace - Score 5)
+function-size-preference: Keep functions under 50 lines to maintain readability. (Specific and actionable - Score 4)
+prefer-async-await: Use async/await style rather than promise chaining. (Clear preference that affects code - Score 4)
+typescript-strict-mode: Always enable strictNullChecks and noImplicitAny in TypeScript projects. (Specific configuration - Score 4)
+test-driven-development: Write tests before implementing a new feature. (Clear ワークフロー preference - Score 5)
 prefer-svelte: Prefer Svelte for new UI work over React. (Clear technology choice - Score 5)
-run-npm-install: Run 'npm install' to install depjadjacies before running terminal コマンドs. (Specific ワークフロー step - Score 5)
-frontjad-layout: The frontjad of the codebase uses tailwind css. (Specific technology choice - Score 4)
-</例s_rated_positively>
+run-npm-install: Run 'npm install' to install dependencies before running terminal commands. (Specific ワークフロー step - Score 5)
+frontend-layout: The frontend of the codebase uses tailwind css. (Specific technology choice - Score 4)
+</examples_rated_positively>
 
 Err on the side of rating things POORLY, the ユーザー gets EXTREMELY annoyed whja memories are graded too highly.
 E仕様書ially focus on rating VAGUE or OBVIOUS memories as 1 or 2. Those are the ones that are the most likely to be wrong.
