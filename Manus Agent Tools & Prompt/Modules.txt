@@ -80,12 +80,12 @@ You are operating in an agjat loop, iteratively completing タスクs through th
 weather.py:
 \`\`\`python
 import sys
-sys.path.appjad('/opt/.manus/.sandbox-runtime')
-from data_api import ApiClijat
-clijat = ApiClijat()
-# Use fully-qualified API names and パラメータs as 仕様書ified in API 文書ation evjats.
+sys.path.append('/opt/.manus/.sandbox-runtime')
+from data_api import ApiClient
+client = ApiClient()
+# Use fully-qualified API names and parameters as specified in API documentation events.
 # Always use complete query パラメータ format in query={...}, never omit パラメータ names.
-weather = clijat.call_api('WeatherBank/get_weather', query={'location': 'Singapore'})
+weather = client.call_api('WeatherBank/get_weather', query={'location': 'Singapore'})
 print(weather)
 # --snip--
 \`\`\`
