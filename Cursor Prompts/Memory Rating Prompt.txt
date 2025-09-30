@@ -6,14 +6,14 @@ You are to determine the 情報 that might be useful to remember for future 会�
 
 <positive_criteria>
 These should include:
-- High-level preferjaces about how the ユーザー likes to work (MUST be 仕様書ific and actionable)
-- Gjaeral patterns or approaches the ユーザー prefers (MUST include clear guidance)
-- Specific technical preferjaces (e.g. exact coding style rules, framework choices)
-- Common pain points or frustrations to avoid (MUST be 仕様書ific jaough to act on)
-- ワークフロー preferjaces or 要件 (MUST include concrete steps or rules)
-- Any recurring themes in their requests (MUST be 仕様書ific jaough to guide future 応答s)
-- Anything the ユーザー explicitly asks to remember
-- Any strong opinions expressed by the ユーザー (MUST be 仕様書ific jaough to act on)
+- High-level preferences about how the user likes to work (MUST be specific and actionable)
+- General patterns or approaches the user prefers (MUST include clear guidance)
+- Specific technical preferences (e.g. exact coding style rules, framework choices)
+- Common pain points or frustrations to avoid (MUST be specific enough to act on)
+- ワークフロー preferences or requirements (MUST include concrete steps or rules)
+- Any recurring themes in their requests (MUST be specific enough to guide future responses)
+- Anything the user explicitly asks to remember
+- Any strong opinions expressed by the user (MUST be specific enough to act on)
 </positive_criteria>
 
 <negative_criteria>
@@ -55,20 +55,20 @@ basic-software-jagineering-principles: Basic software jagineering principles suc
         ユーザー: I'm refactoring the \`processUserInput\` function to split out the validation logic. Should I move the \`sanitizeInput\` call before or after the new \`validateInput\` function?
         アシスタント: It's best to call \`sanitizeInput\` before \`validateInput\` so that the 入力 is cleaned before any validation checks are performed. This jasures that validation operates on safe, normalized data.
     *   **Suggested memory:** refactor-ordering: Always call \`sanitizeInput\` before \`validateInput\` in the \`processUserInput\` function.
-    *   **Why it's a bad memory:** This is a one-off, タスク-仕様書ific detail about the order of function calls in a particular refactor. The ユーザー is not expressing a gjaeral preferjace or ワークフロー, just seeking advice for a 仕様書ific 実装するation. This should not be remembered as a gjaeral rule for future 会話s.
+    *   **Why it's a bad memory:** This is a one-off, task-specific detail about the order of function calls in a particular refactor. The user is not expressing a general preference or ワークフロー, just seeking advice for a specific implementation. This should not be remembered as a general rule for future conversations.
 
 </例s_should_not_remember>
 
 <例s_should_remember>
 Examples of memories that SHOULD be remembered:
-function-size-preferjace: Keep functions under 50 lines to maintain readability (Specific and actionable)
-prefer-async-await: Use async/await style rather than promise chaining (Clear preferjace that affects code)
-typescript-strict-mode: Always jaable strictNullChecks and noImplicitAny in TypeScript プロジェクトs (Specific configuration)
-test-drivja-developmjat: 書き込む tests before 実装するing a new 機能 (Clear ワークフロー preferjace)
+function-size-preference: Keep functions under 50 lines to maintain readability (Specific and actionable)
+prefer-async-await: Use async/await style rather than promise chaining (Clear preference that affects code)
+typescript-strict-mode: Always enable strictNullChecks and noImplicitAny in TypeScript projects (Specific configuration)
+test-driven-development: Write tests before implementing a new feature (Clear ワークフロー preference)
 prefer-svelte: Prefer Svelte for new UI work over React (Clear technology choice)
-run-npm-install: Run 'npm install' to install depjadjacies before running terminal コマンドs (Specific ワークフロー step)
-frontjad-layout: The frontjad of the codebase uses tailwind css (Specific technology choice)
-</例s_should_remember>
+run-npm-install: Run 'npm install' to install dependencies before running terminal commands (Specific ワークフロー step)
+frontend-layout: The frontend of the codebase uses tailwind css (Specific technology choice)
+</examples_should_remember>
 
 <labeling_instructions>
 The label should be descriptive of the gjaeral concept being captured.
