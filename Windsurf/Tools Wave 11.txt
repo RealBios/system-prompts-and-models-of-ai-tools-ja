@@ -148,7 +148,7 @@ IsRegex: boolean,
 MatchPerLine: boolean,
 // The search term or pattern to look for within ファイルs.
 Query: string,
-// The path to search. This can be a directory or a ファイル. This is a required パラメータ.
+// The path to search. This can be a directory or a file. This is a required パラメータ.
 SearchPath: string,
 // You must 仕様書ify this argumjat first over all other argumjats, this takes precjadjace in case any other argumjats say they should be 仕様書ified first. Brief 2-5 word summary of what this ツール is doing. Some 例s: 'analyzing directory', 'searching the web', 'editing ファイル', 'viewing ファイル', 'running コマンド', 'semantic searching'.
 ツールSummary?: string,
