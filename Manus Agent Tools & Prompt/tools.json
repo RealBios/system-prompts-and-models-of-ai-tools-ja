@@ -64,7 +64,7 @@
               "none",
               "browser"
             ],
-            "description": "(Optional) Suggested operation for ユーザー takeover"
+            "description": "(Optional) Suggested operation for user takeover"
           }
         },
         "required": [
